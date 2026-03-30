@@ -190,4 +190,25 @@
     pointer-events: none;
     animation: confetti-fall linear infinite;
   }
+
+  /* Rose petal shower */
+  @keyframes rose-fall {
+    0% {
+      transform: translateY(-5%) translateX(0) rotate(0deg);
+      opacity: var(--petal-opacity, 0.4);
+    }
+    50% {
+      transform: translateY(50vh) translateX(var(--drift, 20px)) rotate(calc(var(--rot, 180deg) / 2));
+      opacity: var(--petal-opacity, 0.35);
+    }
+    100% {
+      transform: translateY(110vh) translateX(calc(var(--drift, 20px) * -0.5)) rotate(var(--rot, 180deg));
+      opacity: 0;
+    }
+  }
+  .rose-petal {
+    position: absolute;
+    pointer-events: none;
+    animation: rose-fall ease-in-out infinite;
+  }
 }

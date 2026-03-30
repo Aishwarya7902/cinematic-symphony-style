@@ -60,6 +60,7 @@ const FloralEvents = () => {
         background: "linear-gradient(165deg, hsl(345 65% 10%) 0%, hsl(345 55% 16%) 50%, hsl(345 65% 10%) 100%)",
       }}
     >
+      <RosePetals />
       {/* Subtle radial glow */}
       <div
         className="absolute inset-0 pointer-events-none"

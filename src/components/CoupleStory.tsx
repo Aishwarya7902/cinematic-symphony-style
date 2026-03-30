@@ -17,6 +17,7 @@ const CoupleStory = () => {
         background: "linear-gradient(160deg, hsl(345 65% 10%), hsl(345 60% 14%), hsl(345 55% 11%))",
       }}
     >
+      <RosePetals />
       {/* Subtle radial glow */}
       <div className="absolute inset-0 pointer-events-none" style={{
         backgroundImage: `radial-gradient(circle at 30% 40%, hsl(43 80% 55% / 0.08) 0%, transparent 50%),

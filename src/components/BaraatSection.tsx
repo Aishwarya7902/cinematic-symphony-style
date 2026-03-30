@@ -1,6 +1,7 @@
 import { motion, AnimatePresence } from "framer-motion";
 import { useState } from "react";
 import { ChevronDown } from "lucide-react";
+import RosePetals from "./RosePetals";
 
 const baraatEvents = [
   {

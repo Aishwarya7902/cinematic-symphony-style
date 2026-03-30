@@ -10,8 +10,19 @@ const timeline = [
 
 const CoupleStory = () => {
   return (
-    <section className="relative min-h-screen bg-background py-24 overflow-hidden">
-      <div className="max-w-6xl mx-auto px-6">
+    <section
+      className="relative min-h-screen py-24 overflow-hidden"
+      style={{
+        background: "linear-gradient(160deg, hsl(345 65% 10%), hsl(345 60% 14%), hsl(345 55% 11%))",
+      }}
+    >
+      {/* Subtle radial glow */}
+      <div className="absolute inset-0 pointer-events-none" style={{
+        backgroundImage: `radial-gradient(circle at 30% 40%, hsl(43 80% 55% / 0.08) 0%, transparent 50%),
+                          radial-gradient(circle at 70% 70%, hsl(43 80% 55% / 0.05) 0%, transparent 45%)`
+      }} />
+
+      <div className="max-w-6xl mx-auto px-6 relative z-10">
         {/* Header */}
         <motion.div
           initial={{ opacity: 0, y: 30 }}
@@ -19,9 +30,18 @@ const CoupleStory = () => {
           viewport={{ once: true }}
           className="text-center mb-20"
         >
-          <p className="font-body text-muted-foreground text-sm uppercase tracking-[0.4em] mb-4">Our Journey</p>
-          <h2 className="font-display text-5xl md:text-6xl text-foreground mb-4">Love Story</h2>
-          <div className="ornament-line ornament-line-luxury mx-auto" />
+          <p className="font-body text-sm uppercase tracking-[0.4em] mb-4" style={{ color: "hsl(43 60% 65% / 0.7)" }}>Our Journey</p>
+          <h2
+            className="font-display text-5xl md:text-6xl mb-4"
+            style={{
+              background: "linear-gradient(90deg, hsl(43 70% 50%), hsl(43 90% 70%), hsl(43 70% 50%))",
+              backgroundSize: "200% 100%",
+              WebkitBackgroundClip: "text",
+              WebkitTextFillColor: "transparent",
+              animation: "shimmer-gold 4s linear infinite",
+            }}
+          >Love Story</h2>
+          <div className="mx-auto" style={{ width: 80, height: 2, background: "linear-gradient(90deg, transparent, hsl(43 80% 55%), transparent)" }} />
         </motion.div>
 
         {/* Two column: image + timeline */}
@@ -34,7 +54,7 @@ const CoupleStory = () => {
             transition={{ duration: 1 }}
             className="relative"
           >
-            <div className="relative rounded-2xl overflow-hidden shadow-2xl">
+            <div className="relative rounded-2xl overflow-hidden" style={{ boxShadow: "0 8px 40px hsl(345 60% 8% / 0.6)" }}>
               <img
                 src={couplePortrait}
                 alt="Priya and Arjun"
@@ -43,16 +63,16 @@ const CoupleStory = () => {
                 width={1024}
                 height={1280}
               />
-              <div className="absolute inset-0 bg-gradient-to-t from-foreground/30 to-transparent" />
+              <div className="absolute inset-0" style={{ background: "linear-gradient(to top, hsl(345 60% 10% / 0.4), transparent)" }} />
             </div>
             {/* Decorative frame accent */}
-            <div className="absolute -bottom-4 -right-4 w-full h-full border-2 border-royal-gold/30 rounded-2xl -z-10" />
+            <div className="absolute -bottom-4 -right-4 w-full h-full rounded-2xl -z-10" style={{ border: "2px solid hsl(43 80% 55% / 0.25)" }} />
           </motion.div>
 
           {/* Timeline */}
           <div className="relative">
             {/* Vertical line */}
-            <div className="absolute left-4 top-0 bottom-0 w-px bg-border" />
+            <div className="absolute left-4 top-0 bottom-0 w-px" style={{ background: "linear-gradient(180deg, transparent, hsl(43 80% 55% / 0.3), transparent)" }} />
 
             <div className="space-y-12">
               {timeline.map((item, idx) => (
@@ -65,16 +85,23 @@ const CoupleStory = () => {
                   className="relative pl-12"
                 >
                   {/* Dot */}
-                  <div className="absolute left-2.5 top-1 w-3 h-3 rounded-full bg-royal-gold border-2 border-background" />
-                  <p className="text-royal-gold font-body text-sm font-semibold tracking-widest mb-1">{item.year}</p>
-                  <h3 className="font-display text-2xl text-foreground mb-2">{item.title}</h3>
-                  <p className="font-body text-muted-foreground leading-relaxed">{item.desc}</p>
+                  <div className="absolute left-2.5 top-1 w-3 h-3 rounded-full" style={{ background: "hsl(43 80% 55%)", border: "2px solid hsl(345 60% 12%)", boxShadow: "0 0 8px hsl(43 80% 55% / 0.4)" }} />
+                  <p className="font-body text-sm font-semibold tracking-widest mb-1" style={{ color: "hsl(43 70% 60%)" }}>{item.year}</p>
+                  <h3 className="font-display text-2xl mb-2" style={{ color: "hsl(43 50% 72%)" }}>{item.title}</h3>
+                  <p className="font-body leading-relaxed" style={{ color: "hsl(40 30% 80% / 0.75)" }}>{item.desc}</p>
                 </motion.div>
               ))}
             </div>
           </div>
         </div>
       </div>
+
+      <style>{`
+        @keyframes shimmer-gold {
+          0% { background-position: -200% 0; }
+          100% { background-position: 200% 0; }
+        }
+      `}</style>
     </section>
   );
 };

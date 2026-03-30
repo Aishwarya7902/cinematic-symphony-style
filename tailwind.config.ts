@@ -13,6 +13,11 @@ export default {
       },
     },
     extend: {
+      fontFamily: {
+        display: ['Playfair Display', 'serif'],
+        body: ['DM Sans', 'sans-serif'],
+        hindi: ['Noto Serif Devanagari', 'serif'],
+      },
       colors: {
         border: "hsl(var(--border))",
         input: "hsl(var(--input))",
@@ -47,6 +52,45 @@ export default {
           DEFAULT: "hsl(var(--card))",
           foreground: "hsl(var(--card-foreground))",
         },
+        royal: {
+          bg: "hsl(var(--royal-bg))",
+          "bg-deep": "hsl(var(--royal-bg-deep))",
+          gold: "hsl(var(--royal-gold))",
+          "gold-light": "hsl(var(--royal-gold-light))",
+          maroon: "hsl(var(--royal-maroon))",
+          cream: "hsl(var(--royal-cream))",
+        },
+        temple: {
+          bg: "hsl(var(--temple-bg))",
+          warm: "hsl(var(--temple-warm))",
+          saffron: "hsl(var(--temple-saffron))",
+          deep: "hsl(var(--temple-deep))",
+          copper: "hsl(var(--temple-copper))",
+          cream: "hsl(var(--temple-cream))",
+        },
+        floral: {
+          bg: "hsl(var(--floral-bg))",
+          green: "hsl(var(--floral-green))",
+          "green-light": "hsl(var(--floral-green-light))",
+          pink: "hsl(var(--floral-pink))",
+          cream: "hsl(var(--floral-cream))",
+          gold: "hsl(var(--floral-gold))",
+        },
+        baraat: {
+          bg: "hsl(var(--baraat-bg))",
+          red: "hsl(var(--baraat-red))",
+          orange: "hsl(var(--baraat-orange))",
+          yellow: "hsl(var(--baraat-yellow))",
+          pink: "hsl(var(--baraat-pink))",
+          cream: "hsl(var(--baraat-cream))",
+        },
+        luxury: {
+          bg: "hsl(var(--luxury-bg))",
+          gold: "hsl(var(--luxury-gold))",
+          "gold-light": "hsl(var(--luxury-gold-light))",
+          charcoal: "hsl(var(--luxury-charcoal))",
+          cream: "hsl(var(--luxury-cream))",
+        },
         sidebar: {
           DEFAULT: "hsl(var(--sidebar-background))",
           foreground: "hsl(var(--sidebar-foreground))",
@@ -65,20 +109,12 @@ export default {
       },
       keyframes: {
         "accordion-down": {
-          from: {
-            height: "0",
-          },
-          to: {
-            height: "var(--radix-accordion-content-height)",
-          },
+          from: { height: "0" },
+          to: { height: "var(--radix-accordion-content-height)" },
         },
         "accordion-up": {
-          from: {
-            height: "var(--radix-accordion-content-height)",
-          },
-          to: {
-            height: "0",
-          },
+          from: { height: "var(--radix-accordion-content-height)" },
+          to: { height: "0" },
         },
       },
       animation: {

@@ -1,105 +1,202 @@
 import { motion } from "framer-motion";
-import templeInterior from "@/assets/temple-interior.jpg";
-
-const diyas = Array.from({ length: 7 }, (_, i) => i);
 
 const TempleSection = () => {
   return (
-    <section className="section-temple relative min-h-screen flex items-center justify-center overflow-hidden py-24">
-      {/* Subtle background */}
-      <div className="absolute inset-0 opacity-15">
-        <img src={templeInterior} alt="Temple" className="w-full h-full object-cover" loading="lazy" width={1920} height={1080} />
-      </div>
-      <div className="absolute inset-0 bg-gradient-to-b from-temple-cream via-temple-bg/95 to-temple-cream" />
+    <section className="relative min-h-screen flex items-center justify-center overflow-hidden py-20 px-4"
+      style={{ background: "linear-gradient(160deg, hsl(345 65% 10%), hsl(345 60% 14%), hsl(345 55% 11%))" }}
+    >
+      {/* Subtle pattern overlay */}
+      <div className="absolute inset-0 opacity-[0.04]"
+        style={{
+          backgroundImage: `radial-gradient(circle at 20% 50%, hsl(43 80% 55% / 0.15) 0%, transparent 50%),
+                            radial-gradient(circle at 80% 20%, hsl(43 80% 55% / 0.1) 0%, transparent 40%),
+                            radial-gradient(circle at 50% 80%, hsl(43 80% 55% / 0.08) 0%, transparent 45%)`
+        }}
+      />
 
-      <div className="relative z-10 max-w-4xl mx-auto px-6 text-center">
-        {/* Diyas row */}
-        <div className="flex justify-center gap-8 mb-12">
-          {diyas.map((i) => (
-            <motion.div
-              key={i}
-              initial={{ opacity: 0, scale: 0 }}
-              whileInView={{ opacity: 1, scale: 1 }}
-              viewport={{ once: true }}
-              transition={{ delay: i * 0.1, duration: 0.5 }}
-              className="text-3xl animate-diya"
-              style={{ animationDelay: `${i * 0.4}s` }}
-            >
-              🪔
-            </motion.div>
-          ))}
-        </div>
+      <div className="relative z-10 max-w-4xl mx-auto w-full">
+        {/* Top ornament */}
+        <motion.div
+          initial={{ scaleX: 0, opacity: 0 }}
+          whileInView={{ scaleX: 1, opacity: 1 }}
+          viewport={{ once: true }}
+          transition={{ duration: 1.2 }}
+          className="flex items-center justify-center gap-4 mb-14"
+        >
+          <span className="block h-px w-16 bg-gradient-to-r from-transparent to-[hsl(43_80%_55%_/_0.6)]" />
+          <span className="text-2xl" style={{ color: "hsl(43 80% 55%)" }}>✦</span>
+          <span className="block h-px w-16 bg-gradient-to-l from-transparent to-[hsl(43_80%_55%_/_0.6)]" />
+        </motion.div>
 
+        {/* Shloka */}
+        <motion.div
+          initial={{ opacity: 0, y: 24 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 1, delay: 0.2 }}
+          className="text-center mb-6"
+        >
+          <p className="font-hindi text-2xl md:text-3xl lg:text-4xl leading-relaxed animate-shimmer-gold"
+            style={{
+              background: "linear-gradient(90deg, hsl(43 70% 50%), hsl(43 90% 70%), hsl(43 70% 50%))",
+              backgroundSize: "200% 100%",
+              WebkitBackgroundClip: "text",
+              WebkitTextFillColor: "transparent",
+              animation: "shimmer-gold 4s linear infinite",
+              textShadow: "none",
+            }}
+          >
+            वक्रतुण्ड महाकाय सूर्यकोटि समप्रभ
+          </p>
+        </motion.div>
+
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 1, delay: 0.5 }}
+          className="text-center mb-6"
+        >
+          <p className="font-hindi text-2xl md:text-3xl lg:text-4xl leading-relaxed"
+            style={{
+              background: "linear-gradient(90deg, hsl(43 70% 50%), hsl(43 90% 70%), hsl(43 70% 50%))",
+              backgroundSize: "200% 100%",
+              WebkitBackgroundClip: "text",
+              WebkitTextFillColor: "transparent",
+              animation: "shimmer-gold 4s linear infinite",
+              animationDelay: "0.5s",
+            }}
+          >
+            निर्विघ्नं कुरु मे देव सर्वकार्येषु सर्वदा
+          </p>
+        </motion.div>
+
+        {/* Meaning */}
         <motion.p
           initial={{ opacity: 0 }}
           whileInView={{ opacity: 1 }}
           viewport={{ once: true }}
-          transition={{ duration: 1 }}
-          className="font-hindi text-temple-saffron text-xl md:text-2xl mb-4"
+          transition={{ duration: 1, delay: 0.8 }}
+          className="text-center font-display text-base md:text-lg italic max-w-2xl mx-auto mb-16 leading-relaxed"
+          style={{ color: "hsl(43 50% 72%)" }}
         >
-          वक्रतुण्ड महाकाय सूर्यकोटि समप्रभ
-        </motion.p>
-        <motion.p
-          initial={{ opacity: 0 }}
-          whileInView={{ opacity: 1 }}
-          viewport={{ once: true }}
-          transition={{ duration: 1, delay: 0.3 }}
-          className="font-hindi text-temple-saffron text-xl md:text-2xl mb-10"
-        >
-          निर्विघ्नं कुरु मे देव सर्वकार्येषु सर्वदा
+          "O Lord Ganesha, of curved trunk and massive form, whose brilliance equals
+          a billion suns — please bless all my endeavors, removing every obstacle, always."
         </motion.p>
 
+        {/* Divider */}
         <motion.div
           initial={{ scaleX: 0 }}
           whileInView={{ scaleX: 1 }}
           viewport={{ once: true }}
-          transition={{ duration: 1 }}
-          className="ornament-line ornament-line-temple mx-auto mb-10"
+          transition={{ duration: 1, delay: 0.9 }}
+          className="mx-auto mb-16 h-px w-40"
+          style={{ background: "linear-gradient(90deg, transparent, hsl(43 80% 55% / 0.5), transparent)" }}
         />
 
-        <motion.h2
-          initial={{ opacity: 0, y: 20 }}
+        {/* Family Card */}
+        <motion.div
+          initial={{ opacity: 0, y: 30 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
-          transition={{ duration: 0.8, delay: 0.3 }}
-          className="font-display text-4xl md:text-5xl text-temple-deep mb-6"
+          transition={{ duration: 0.9, delay: 1 }}
+          className="rounded-2xl p-8 md:p-12 mx-auto max-w-3xl"
+          style={{
+            background: "linear-gradient(145deg, hsl(345 55% 14% / 0.8), hsl(345 60% 10% / 0.9))",
+            border: "1px solid hsl(43 80% 55% / 0.25)",
+            boxShadow: "0 8px 40px hsl(345 60% 8% / 0.6), inset 0 1px 0 hsl(43 80% 55% / 0.1)",
+          }}
         >
-          Divine Blessings
-        </motion.h2>
+          {/* Card heading */}
+          <div className="text-center mb-10">
+            <p className="font-display text-sm uppercase tracking-[0.35em]"
+              style={{ color: "hsl(43 70% 60%)" }}
+            >
+              With the blessings of our beloved families
+            </p>
+          </div>
 
-        <motion.p
+          {/* Two columns */}
+          <div className="grid md:grid-cols-2 gap-10 md:gap-8">
+            {/* Bride's Family */}
+            <motion.div
+              initial={{ opacity: 0, x: -20 }}
+              whileInView={{ opacity: 1, x: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.7, delay: 1.2 }}
+              className="text-center"
+            >
+              <p className="text-xs uppercase tracking-[0.4em] mb-4 font-body"
+                style={{ color: "hsl(43 80% 55% / 0.7)" }}
+              >
+                Bride's Family
+              </p>
+              <div className="mx-auto mb-4 h-px w-12"
+                style={{ background: "linear-gradient(90deg, transparent, hsl(43 80% 55% / 0.4), transparent)" }}
+              />
+              <p className="font-display text-xl md:text-2xl mb-2"
+                style={{ color: "hsl(43 70% 72%)" }}
+              >
+                Mr. & Mrs. Rajesh Sharma
+              </p>
+              <p className="font-body text-sm" style={{ color: "hsl(43 40% 60% / 0.7)" }}>
+                Jaipur, Rajasthan
+              </p>
+            </motion.div>
+
+            {/* Vertical divider (desktop) */}
+            <div className="hidden md:block absolute left-1/2 top-1/2 -translate-y-1/2 w-px h-20"
+              style={{ background: "linear-gradient(180deg, transparent, hsl(43 80% 55% / 0.3), transparent)" }}
+            />
+
+            {/* Groom's Family */}
+            <motion.div
+              initial={{ opacity: 0, x: 20 }}
+              whileInView={{ opacity: 1, x: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.7, delay: 1.4 }}
+              className="text-center"
+            >
+              <p className="text-xs uppercase tracking-[0.4em] mb-4 font-body"
+                style={{ color: "hsl(43 80% 55% / 0.7)" }}
+              >
+                Groom's Family
+              </p>
+              <div className="mx-auto mb-4 h-px w-12"
+                style={{ background: "linear-gradient(90deg, transparent, hsl(43 80% 55% / 0.4), transparent)" }}
+              />
+              <p className="font-display text-xl md:text-2xl mb-2"
+                style={{ color: "hsl(43 70% 72%)" }}
+              >
+                Mr. & Mrs. Vikram Mehta
+              </p>
+              <p className="font-body text-sm" style={{ color: "hsl(43 40% 60% / 0.7)" }}>
+                Mumbai, Maharashtra
+              </p>
+            </motion.div>
+          </div>
+        </motion.div>
+
+        {/* Bottom ornament */}
+        <motion.div
           initial={{ opacity: 0 }}
           whileInView={{ opacity: 1 }}
           viewport={{ once: true }}
-          transition={{ duration: 0.8, delay: 0.5 }}
-          className="font-body text-temple-copper text-lg leading-relaxed max-w-2xl mx-auto mb-12"
+          transition={{ duration: 1, delay: 1.5 }}
+          className="flex items-center justify-center gap-4 mt-14"
         >
-          With the blessings of Lord Ganesha and the grace of our elders, we seek your 
-          presence as we begin this sacred journey together. Your love and blessings 
-          are the greatest gifts we could receive.
-        </motion.p>
-
-        {/* Families */}
-        <div className="grid md:grid-cols-2 gap-12">
-          {[
-            { family: "Bride's Family", parents: "Mr. & Mrs. Rajesh Sharma", city: "Jaipur" },
-            { family: "Groom's Family", parents: "Mr. & Mrs. Vikram Mehta", city: "Mumbai" },
-          ].map((side, idx) => (
-            <motion.div
-              key={side.family}
-              initial={{ opacity: 0, x: idx === 0 ? -30 : 30 }}
-              whileInView={{ opacity: 1, x: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.8, delay: 0.7 + idx * 0.2 }}
-              className="bg-temple-cream/60 backdrop-blur-sm rounded-lg p-8 border border-temple-saffron/20"
-            >
-              <p className="text-temple-saffron text-sm uppercase tracking-[0.3em] mb-3 font-body">{side.family}</p>
-              <p className="font-display text-2xl text-temple-deep mb-1">{side.parents}</p>
-              <p className="text-temple-copper/70 font-body">{side.city}</p>
-            </motion.div>
-          ))}
-        </div>
+          <span className="block h-px w-12 bg-gradient-to-r from-transparent to-[hsl(43_80%_55%_/_0.4)]" />
+          <span className="text-lg" style={{ color: "hsl(43 80% 55% / 0.6)" }}>🙏</span>
+          <span className="block h-px w-12 bg-gradient-to-l from-transparent to-[hsl(43_80%_55%_/_0.4)]" />
+        </motion.div>
       </div>
+
+      <style>{`
+        @keyframes shimmer-gold {
+          0% { background-position: -200% 0; }
+          100% { background-position: 200% 0; }
+        }
+      `}</style>
     </section>
   );
 };

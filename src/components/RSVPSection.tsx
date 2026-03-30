@@ -1,5 +1,6 @@
 import { motion, AnimatePresence } from "framer-motion";
 import { useState } from "react";
+import RosePetals from "./RosePetals";
 
 type Response = "accepted" | "declined" | null;
 
@@ -11,6 +12,7 @@ const RSVPSection = () => {
       className="relative min-h-screen flex items-center justify-center overflow-hidden py-24"
       style={{ background: "linear-gradient(135deg, hsl(345 65% 10%) 0%, hsl(345 60% 14%) 50%, hsl(345 65% 10%) 100%)" }}
     >
+      <RosePetals />
       <div className="absolute inset-0 pointer-events-none" style={{ background: "radial-gradient(ellipse at 50% 40%, hsl(43 80% 55% / 0.04) 0%, transparent 60%)" }} />
 
       <div className="relative z-10 max-w-2xl mx-auto px-6 w-full">

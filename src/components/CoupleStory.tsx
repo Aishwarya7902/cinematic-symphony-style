@@ -1,5 +1,6 @@
 import { motion } from "framer-motion";
 import couplePortrait from "@/assets/couple-portrait.jpg";
+import RosePetals from "./RosePetals";
 
 const timeline = [
   { year: "2019", title: "First Meeting", desc: "A chance encounter at a friend's wedding set the stars in motion." },
@@ -16,6 +17,7 @@ const CoupleStory = () => {
         background: "linear-gradient(160deg, hsl(345 65% 10%), hsl(345 60% 14%), hsl(345 55% 11%))",
       }}
     >
+      <RosePetals />
       {/* Subtle radial glow */}
       <div className="absolute inset-0 pointer-events-none" style={{
         backgroundImage: `radial-gradient(circle at 30% 40%, hsl(43 80% 55% / 0.08) 0%, transparent 50%),

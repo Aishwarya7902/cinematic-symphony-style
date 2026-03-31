@@ -2,6 +2,7 @@ import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { ChevronLeft, ChevronRight } from "lucide-react";
 import RosePetals from "./RosePetals";
+import GoldenElements from "./GoldenElements";
 
 const events = [
   {

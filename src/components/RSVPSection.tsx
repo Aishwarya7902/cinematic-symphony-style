@@ -1,6 +1,7 @@
 import { motion, AnimatePresence } from "framer-motion";
 import { useState } from "react";
 import RosePetals from "./RosePetals";
+import GoldenElements from "./GoldenElements";
 
 type Response = "accepted" | "declined" | null;
 

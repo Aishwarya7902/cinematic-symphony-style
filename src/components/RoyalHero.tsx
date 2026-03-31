@@ -1,10 +1,12 @@
 import { motion } from "framer-motion";
 import royalPalace from "@/assets/royal-palace.jpg";
 import RosePetals from "./RosePetals";
+import GoldenElements from "./GoldenElements";
 
 const RoyalHero = () => {
   return (
     <section className="section-royal relative min-h-screen flex items-center justify-center overflow-hidden">
+      <GoldenElements />
       <RosePetals />
       {/* Background image with overlay */}
       <div className="absolute inset-0">

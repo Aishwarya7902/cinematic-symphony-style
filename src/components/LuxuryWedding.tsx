@@ -28,6 +28,7 @@ const LuxuryWedding = () => {
       className="relative min-h-screen flex items-center justify-center overflow-hidden py-24"
       style={{ background: "linear-gradient(135deg, hsl(345 65% 10%) 0%, hsl(345 60% 14%) 50%, hsl(345 65% 10%) 100%)" }}
     >
+      <GoldenElements />
       <RosePetals />
       {/* Subtle radial glow */}
       <div className="absolute inset-0 pointer-events-none" style={{ background: "radial-gradient(ellipse at 50% 40%, hsl(43 80% 55% / 0.04) 0%, transparent 60%)" }} />

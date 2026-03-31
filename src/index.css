@@ -211,4 +211,18 @@
     pointer-events: none;
     animation: rose-fall ease-in-out infinite;
   }
+
+  @keyframes golden-float {
+    0%, 100% {
+      transform: translateY(0) scale(1);
+      opacity: var(--el-opacity, 0.05);
+    }
+    50% {
+      transform: translateY(-15px) scale(1.05);
+      opacity: calc(var(--el-opacity, 0.05) + 0.02);
+    }
+  }
+  .golden-float {
+    animation: golden-float ease-in-out infinite;
+  }
 }

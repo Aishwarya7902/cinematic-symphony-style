@@ -1,6 +1,7 @@
 import { motion } from "framer-motion";
 import { useEffect, useState } from "react";
 import RosePetals from "./RosePetals";
+import GoldenElements from "./GoldenElements";
 
 const weddingDate = new Date("2026-12-15T19:00:00");
 

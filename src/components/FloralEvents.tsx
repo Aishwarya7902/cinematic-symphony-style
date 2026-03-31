@@ -1,8 +1,15 @@
 import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { ChevronLeft, ChevronRight } from "lucide-react";
+import { ChevronLeft, ChevronRight, X } from "lucide-react";
 import RosePetals from "./RosePetals";
 import GoldenElements from "./GoldenElements";
+
+import eventMehendi from "@/assets/event-mehendi.jpg";
+import eventHaldi from "@/assets/event-haldi.jpg";
+import eventSangeet from "@/assets/event-sangeet.jpg";
+import eventWedding from "@/assets/event-wedding.jpg";
+import eventReception from "@/assets/event-reception.jpg";
+import eventVidaai from "@/assets/event-vidaai.jpg";
 
 const events = [
   {
@@ -12,6 +19,7 @@ const events = [
     date: "13th December, 2026",
     time: "4:00 PM onwards",
     venue: "Sharma Residence, Jaipur",
+    image: eventMehendi,
   },
   {
     title: "Haldi Ceremony",
@@ -20,6 +28,7 @@ const events = [
     date: "14th December, 2026",
     time: "10:00 AM onwards",
     venue: "Mehta Garden, Mumbai",
+    image: eventHaldi,
   },
   {
     title: "Sangeet Night",
@@ -28,6 +37,7 @@ const events = [
     date: "14th December, 2026",
     time: "7:00 PM onwards",
     venue: "Grand Ballroom, Taj Palace",
+    image: eventSangeet,
   },
   {
     title: "Wedding Ceremony",
@@ -36,6 +46,7 @@ const events = [
     date: "15th December, 2026",
     time: "9:00 AM onwards",
     venue: "Royal Mandap, Taj Palace",
+    image: eventWedding,
   },
   {
     title: "Reception",
@@ -44,6 +55,7 @@ const events = [
     date: "15th December, 2026",
     time: "7:00 PM onwards",
     venue: "Crystal Hall, Taj Palace",
+    image: eventReception,
   },
   {
     title: "Vidaai",
@@ -52,12 +64,14 @@ const events = [
     date: "16th December, 2026",
     time: "11:00 AM",
     venue: "Sharma Residence, Jaipur",
+    image: eventVidaai,
   },
 ];
 
 const FloralEvents = () => {
   const [active, setActive] = useState(0);
   const [revealed, setRevealed] = useState<number | null>(null);
+  const [showImage, setShowImage] = useState<number | null>(null);
 
   const prev = () => {
     setRevealed(null);
@@ -180,6 +194,26 @@ const FloralEvents = () => {
                           <p style={{ color: "hsl(40 30% 80%)" }}>🕓 {event.time}</p>
                           <p style={{ color: "hsl(40 30% 80%)" }}>📍 {event.venue}</p>
                         </div>
+                        {/* View Animation Button */}
+                        <motion.button
+                          initial={{ opacity: 0, y: 10 }}
+                          animate={{ opacity: 1, y: 0 }}
+                          transition={{ delay: 0.2 }}
+                          className="mt-4 w-full px-6 py-3 rounded-full font-body text-sm font-medium transition-all duration-300"
+                          style={{
+                            background: "linear-gradient(135deg, hsl(43 80% 55%), hsl(43 60% 45%))",
+                            color: "hsl(345 65% 10%)",
+                            boxShadow: "0 4px 15px hsl(43 80% 55% / 0.3)",
+                          }}
+                          whileHover={{ scale: 1.05, boxShadow: "0 6px 20px hsl(43 80% 55% / 0.4)" }}
+                          whileTap={{ scale: 0.97 }}
+                          onClick={(e) => {
+                            e.stopPropagation();
+                            setShowImage(idx);
+                          }}
+                        >
+                          ✨ View Celebration
+                        </motion.button>
                       </motion.div>
                     ) : isActive ? (
                       <motion.button
@@ -241,6 +275,104 @@ const FloralEvents = () => {
           ))}
         </div>
       </div>
+
+      {/* Fullscreen Image Overlay */}
+      <AnimatePresence>
+        {showImage !== null && (
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            transition={{ duration: 0.4 }}
+            className="fixed inset-0 z-50 flex items-center justify-center p-4"
+            style={{ background: "hsl(345 65% 6% / 0.92)", backdropFilter: "blur(12px)" }}
+            onClick={() => setShowImage(null)}
+          >
+            {/* Floating sparkles */}
+            {Array.from({ length: 12 }).map((_, i) => (
+              <motion.div
+                key={i}
+                className="absolute w-1.5 h-1.5 rounded-full"
+                style={{
+                  background: "hsl(43 80% 55%)",
+                  left: `${10 + Math.random() * 80}%`,
+                  top: `${10 + Math.random() * 80}%`,
+                  boxShadow: "0 0 8px hsl(43 80% 55% / 0.6)",
+                }}
+                animate={{
+                  y: [0, -30, 0],
+                  opacity: [0.3, 1, 0.3],
+                  scale: [0.8, 1.3, 0.8],
+                }}
+                transition={{
+                  duration: 2 + Math.random() * 2,
+                  repeat: Infinity,
+                  delay: Math.random() * 2,
+                }}
+              />
+            ))}
+
+            <motion.div
+              initial={{ scale: 0.5, rotateY: 90, opacity: 0 }}
+              animate={{ scale: 1, rotateY: 0, opacity: 1 }}
+              exit={{ scale: 0.5, rotateY: -90, opacity: 0 }}
+              transition={{ duration: 0.6, ease: [0.25, 0.46, 0.45, 0.94] }}
+              className="relative max-w-lg w-full"
+              onClick={(e) => e.stopPropagation()}
+            >
+              {/* Close button */}
+              <button
+                onClick={() => setShowImage(null)}
+                className="absolute -top-4 -right-4 z-10 w-10 h-10 rounded-full flex items-center justify-center border transition-all hover:scale-110"
+                style={{
+                  background: "hsl(345 55% 14%)",
+                  borderColor: "hsl(43 80% 55% / 0.4)",
+                  color: "hsl(43 80% 55%)",
+                }}
+              >
+                <X className="w-5 h-5" />
+              </button>
+
+              {/* Image with golden border */}
+              <div
+                className="rounded-2xl overflow-hidden border-2"
+                style={{
+                  borderColor: "hsl(43 80% 55% / 0.4)",
+                  boxShadow: "0 0 60px hsl(43 80% 55% / 0.15), 0 20px 60px hsl(345 60% 6% / 0.5)",
+                }}
+              >
+                <motion.img
+                  src={events[showImage].image}
+                  alt={events[showImage].title}
+                  className="w-full aspect-square object-cover"
+                  loading="lazy"
+                  width={768}
+                  height={768}
+                  initial={{ scale: 1.2 }}
+                  animate={{ scale: 1 }}
+                  transition={{ duration: 0.8, ease: "easeOut" }}
+                />
+              </div>
+
+              {/* Title below image */}
+              <motion.div
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ delay: 0.3 }}
+                className="text-center mt-6"
+              >
+                <span className="text-4xl mb-2 block">{events[showImage].emoji}</span>
+                <h3 className="font-display text-3xl" style={{ color: "hsl(43 80% 55%)" }}>
+                  {events[showImage].title}
+                </h3>
+                <p className="font-body text-sm mt-2" style={{ color: "hsl(40 30% 80%)" }}>
+                  {events[showImage].desc}
+                </p>
+              </motion.div>
+            </motion.div>
+          </motion.div>
+        )}
+      </AnimatePresence>
 
       <style>{`
         @keyframes shimmer {

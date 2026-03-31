@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;0,800;1,400;1,500;1,600&family=DM+Sans:wght@300;400;500;600;700&family=Noto+Serif+Devanagari:wght@400;500;600;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Great+Vibes&family=Dancing+Script:wght@400;500;600;700&family=Noto+Serif+Devanagari:wght@400;500;600;700&display=swap');
 
 @tailwind base;
 @tailwind components;
@@ -70,8 +70,8 @@
     --luxury-cream: 40 30% 90%;
 
     /* Fonts */
-    --font-display: 'Playfair Display', serif;
-    --font-body: 'DM Sans', sans-serif;
+    --font-display: 'Great Vibes', cursive;
+    --font-body: 'Dancing Script', cursive;
     --font-hindi: 'Noto Serif Devanagari', serif;
 
     --sidebar-background: 0 0% 98%;
@@ -90,12 +90,21 @@
     @apply border-border;
   }
   body {
-    @apply bg-background text-foreground;
+    @apply bg-background;
     font-family: var(--font-body);
     overflow-x: hidden;
+    color: hsl(43 80% 55%);
   }
   h1, h2, h3, h4, h5, h6 {
     font-family: var(--font-display);
+    background: linear-gradient(135deg, hsl(43 90% 65%), hsl(43 80% 50%), hsl(45 95% 70%), hsl(43 80% 50%));
+    background-size: 200% 100%;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    animation: shimmer 3s linear infinite;
+  }
+  p, span, a, li, label, button {
+    color: hsl(43 70% 60%);
   }
 }
 

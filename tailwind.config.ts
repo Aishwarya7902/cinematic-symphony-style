@@ -14,8 +14,8 @@ export default {
     },
     extend: {
       fontFamily: {
-        display: ['Playfair Display', 'serif'],
-        body: ['DM Sans', 'sans-serif'],
+        display: ['Great Vibes', 'cursive'],
+        body: ['Dancing Script', 'cursive'],
         hindi: ['Noto Serif Devanagari', 'serif'],
       },
       colors: {

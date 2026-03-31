@@ -2,6 +2,7 @@ import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { ChevronLeft, ChevronRight } from "lucide-react";
 import RosePetals from "./RosePetals";
+import GoldenElements from "./GoldenElements";
 
 const events = [
   {
@@ -60,6 +61,7 @@ const FloralEvents = () => {
         background: "linear-gradient(165deg, hsl(345 65% 10%) 0%, hsl(345 55% 16%) 50%, hsl(345 65% 10%) 100%)",
       }}
     >
+      <GoldenElements />
       <RosePetals />
       {/* Subtle radial glow */}
       <div

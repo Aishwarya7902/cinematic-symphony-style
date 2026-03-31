@@ -1,11 +1,13 @@
 import { motion } from "framer-motion";
 import RosePetals from "./RosePetals";
+import GoldenElements from "./GoldenElements";
 
 const TempleSection = () => {
   return (
     <section className="relative min-h-screen flex items-center justify-center overflow-hidden py-20 px-4"
       style={{ background: "linear-gradient(160deg, hsl(345 65% 10%), hsl(345 60% 14%), hsl(345 55% 11%))" }}
     >
+      <GoldenElements />
       <RosePetals />
       {/* Subtle pattern overlay */}
       <div className="absolute inset-0 opacity-[0.04]"

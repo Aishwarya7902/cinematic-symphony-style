@@ -2,6 +2,7 @@ import { motion, AnimatePresence } from "framer-motion";
 import { useState } from "react";
 import { ChevronDown } from "lucide-react";
 import RosePetals from "./RosePetals";
+import GoldenElements from "./GoldenElements";
 
 const baraatEvents = [
   {
@@ -31,6 +32,7 @@ const BaraatSection = () => {
 
   return (
     <section className="relative min-h-screen py-24 overflow-hidden" style={{ background: "linear-gradient(135deg, hsl(345 65% 10%) 0%, hsl(345 60% 14%) 50%, hsl(345 65% 10%) 100%)" }}>
+      <GoldenElements />
       <RosePetals />
       {/* Subtle radial glow */}
       <div className="absolute inset-0 pointer-events-none" style={{ background: "radial-gradient(ellipse at 50% 30%, hsl(43 80% 55% / 0.04) 0%, transparent 60%)" }} />

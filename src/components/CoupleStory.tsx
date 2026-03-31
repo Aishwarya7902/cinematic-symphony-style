@@ -1,6 +1,7 @@
 import { motion } from "framer-motion";
 import couplePortrait from "@/assets/couple-portrait.jpg";
 import RosePetals from "./RosePetals";
+import GoldenElements from "./GoldenElements";
 
 const timeline = [
   { year: "2019", title: "First Meeting", desc: "A chance encounter at a friend's wedding set the stars in motion." },

@@ -1,5 +1,6 @@
 import { motion } from "framer-motion";
 import RosePetals from "./RosePetals";
+import GoldenElements from "./GoldenElements";
 
 const TempleSection = () => {
   return (

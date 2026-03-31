@@ -29,6 +29,30 @@ const events = [
     time: "7:00 PM onwards",
     venue: "Grand Ballroom, Taj Palace",
   },
+  {
+    title: "Wedding Ceremony",
+    emoji: "💍",
+    desc: "The sacred union of two souls, bound by love and tradition.",
+    date: "15th December, 2026",
+    time: "9:00 AM onwards",
+    venue: "Royal Mandap, Taj Palace",
+  },
+  {
+    title: "Reception",
+    emoji: "🥂",
+    desc: "A grand celebration to toast the newlyweds with family & friends.",
+    date: "15th December, 2026",
+    time: "7:00 PM onwards",
+    venue: "Crystal Hall, Taj Palace",
+  },
+  {
+    title: "Vidaai",
+    emoji: "🌸",
+    desc: "A heartfelt farewell as the bride begins her new journey.",
+    date: "16th December, 2026",
+    time: "11:00 AM",
+    venue: "Sharma Residence, Jaipur",
+  },
 ];
 
 const FloralEvents = () => {
@@ -50,8 +74,9 @@ const FloralEvents = () => {
     const offset = norm > events.length / 2 ? norm - events.length : norm;
 
     if (offset === 0) return { x: 0, scale: 1, rotateY: 0, z: 50, opacity: 1, filter: "blur(0px)" };
-    if (offset === 1 || offset === -2) return { x: 260, scale: 0.82, rotateY: -25, z: 0, opacity: 0.6, filter: "blur(2px)" };
-    return { x: -260, scale: 0.82, rotateY: 25, z: 0, opacity: 0.6, filter: "blur(2px)" };
+    if (offset === 1) return { x: 260, scale: 0.82, rotateY: -25, z: 0, opacity: 0.6, filter: "blur(2px)" };
+    if (offset === -1) return { x: -260, scale: 0.82, rotateY: 25, z: 0, opacity: 0.6, filter: "blur(2px)" };
+    return { x: offset > 0 ? 400 : -400, scale: 0.7, rotateY: 0, z: -50, opacity: 0, filter: "blur(4px)" };
   };
 
   return (
@@ -63,7 +88,6 @@ const FloralEvents = () => {
     >
       <GoldenElements />
       <RosePetals />
-      {/* Subtle radial glow */}
       <div
         className="absolute inset-0 pointer-events-none"
         style={{
@@ -79,11 +103,8 @@ const FloralEvents = () => {
           viewport={{ once: true }}
           className="text-center mb-20"
         >
-          <p
-            className="font-body text-sm uppercase tracking-[0.4em] mb-4"
-            style={{ color: "hsl(43 70% 72%)" }}
-          >
-            Pre-Wedding Celebrations
+          <p className="font-body text-sm uppercase tracking-[0.4em] mb-4" style={{ color: "hsl(43 70% 72%)" }}>
+            Pre-Wedding & Wedding Celebrations
           </p>
           <h2
             className="font-display text-5xl md:text-6xl mb-4"
@@ -135,20 +156,13 @@ const FloralEvents = () => {
                   }}
                 >
                   <span className="text-5xl mb-5 block">{event.emoji}</span>
-                  <h3
-                    className="font-display text-2xl md:text-3xl mb-3"
-                    style={{ color: "hsl(43 80% 55%)" }}
-                  >
+                  <h3 className="font-display text-2xl md:text-3xl mb-3" style={{ color: "hsl(43 80% 55%)" }}>
                     {event.title}
                   </h3>
-                  <p
-                    className="font-body text-sm leading-relaxed mb-6"
-                    style={{ color: "hsl(40 30% 85%)" }}
-                  >
+                  <p className="font-body text-sm leading-relaxed mb-6" style={{ color: "hsl(40 30% 85%)" }}>
                     {event.desc}
                   </p>
 
-                  {/* Reveal toggle */}
                   <AnimatePresence>
                     {isRevealed && isActive ? (
                       <motion.div
@@ -162,9 +176,7 @@ const FloralEvents = () => {
                           className="border-t pt-5 mt-2 space-y-2 font-body text-sm"
                           style={{ borderColor: "hsl(43 80% 55% / 0.2)" }}
                         >
-                          <p style={{ color: "hsl(43 70% 65%)" }} className="font-semibold">
-                            📅 {event.date}
-                          </p>
+                          <p style={{ color: "hsl(43 70% 65%)" }} className="font-semibold">📅 {event.date}</p>
                           <p style={{ color: "hsl(40 30% 80%)" }}>🕓 {event.time}</p>
                           <p style={{ color: "hsl(40 30% 80%)" }}>📍 {event.venue}</p>
                         </div>
@@ -201,22 +213,14 @@ const FloralEvents = () => {
           <button
             onClick={prev}
             className="w-12 h-12 rounded-full flex items-center justify-center border transition-all duration-300 hover:scale-110"
-            style={{
-              borderColor: "hsl(43 80% 55% / 0.4)",
-              color: "hsl(43 80% 55%)",
-              background: "hsl(345 55% 14% / 0.8)",
-            }}
+            style={{ borderColor: "hsl(43 80% 55% / 0.4)", color: "hsl(43 80% 55%)", background: "hsl(345 55% 14% / 0.8)" }}
           >
             <ChevronLeft className="w-5 h-5" />
           </button>
           <button
             onClick={next}
             className="w-12 h-12 rounded-full flex items-center justify-center border transition-all duration-300 hover:scale-110"
-            style={{
-              borderColor: "hsl(43 80% 55% / 0.4)",
-              color: "hsl(43 80% 55%)",
-              background: "hsl(345 55% 14% / 0.8)",
-            }}
+            style={{ borderColor: "hsl(43 80% 55% / 0.4)", color: "hsl(43 80% 55%)", background: "hsl(345 55% 14% / 0.8)" }}
           >
             <ChevronRight className="w-5 h-5" />
           </button>

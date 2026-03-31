@@ -1,8 +1,6 @@
 import { motion, AnimatePresence } from "framer-motion";
-import { useState } from "react";
+import { useState, useMemo } from "react";
 import { ChevronDown } from "lucide-react";
-import RosePetals from "./RosePetals";
-import GoldenElements from "./GoldenElements";
 
 const baraatEvents = [
   {
@@ -27,15 +25,139 @@ const baraatEvents = [
 
 const baraatCharacters = ["🐎", "🥁", "💃", "🕺", "🎺", "🪘", "💃", "🕺", "🎶", "🐎", "🥁", "💃", "🕺", "🎺", "💃", "🕺"];
 
+// Firework burst particles
+const FireworkBurst = ({ x, y, delay }: { x: number; y: number; delay: number }) => {
+  const particles = useMemo(() => 
+    Array.from({ length: 8 }).map((_, i) => ({
+      angle: (i / 8) * 360,
+      distance: 40 + Math.random() * 30,
+      color: ["hsl(43 80% 55%)", "hsl(0 70% 55%)", "hsl(30 80% 60%)", "hsl(43 90% 70%)"][i % 4],
+      size: 3 + Math.random() * 3,
+    })), []
+  );
+
+  return (
+    <div className="absolute pointer-events-none" style={{ left: `${x}%`, top: `${y}%` }}>
+      {particles.map((p, i) => (
+        <motion.div
+          key={i}
+          initial={{ opacity: 0, x: 0, y: 0, scale: 0 }}
+          animate={{
+            opacity: [0, 1, 1, 0],
+            x: Math.cos((p.angle * Math.PI) / 180) * p.distance,
+            y: Math.sin((p.angle * Math.PI) / 180) * p.distance,
+            scale: [0, 1.2, 0.8, 0],
+          }}
+          transition={{ duration: 1.8, delay: delay + i * 0.05, repeat: Infinity, repeatDelay: 3 + Math.random() * 2 }}
+          className="absolute rounded-full"
+          style={{ width: p.size, height: p.size, background: p.color, boxShadow: `0 0 6px ${p.color}` }}
+        />
+      ))}
+    </div>
+  );
+};
+
+// Confetti pieces
+const ConfettiPiece = ({ delay, startX }: { delay: number; startX: number }) => {
+  const color = useMemo(() => 
+    ["hsl(43 80% 55%)", "hsl(0 70% 50%)", "hsl(120 60% 50%)", "hsl(200 70% 55%)", "hsl(300 60% 55%)"][Math.floor(Math.random() * 5)],
+  []);
+  const size = useMemo(() => 6 + Math.random() * 6, []);
+  const rotation = useMemo(() => Math.random() * 360, []);
+
+  return (
+    <motion.div
+      initial={{ opacity: 0, y: -20, x: startX, rotate: 0 }}
+      animate={{ opacity: [0, 1, 1, 0], y: ["-5%", "105%"], rotate: rotation + 720, x: startX + (Math.random() - 0.5) * 80 }}
+      transition={{ duration: 4 + Math.random() * 3, delay, repeat: Infinity, repeatDelay: Math.random() * 2 }}
+      className="absolute top-0 pointer-events-none"
+      style={{
+        width: size,
+        height: size * 0.6,
+        background: color,
+        borderRadius: "1px",
+      }}
+    />
+  );
+};
+
+// Dancing dhol player silhouette animation
+const DholPlayer = ({ side }: { side: "left" | "right" }) => (
+  <motion.div
+    className="absolute bottom-10 pointer-events-none hidden md:block"
+    style={{ [side]: "5%" }}
+    animate={{ y: [0, -8, 0, -4, 0], rotate: side === "left" ? [0, -3, 0, 3, 0] : [0, 3, 0, -3, 0] }}
+    transition={{ duration: 1.2, repeat: Infinity, ease: "easeInOut" }}
+  >
+    <div className="text-6xl opacity-60">🥁</div>
+  </motion.div>
+);
+
+// Bouncing music notes
+const MusicNote = ({ x, delay }: { x: number; delay: number }) => {
+  const note = useMemo(() => ["🎵", "🎶", "🎼", "♪"][Math.floor(Math.random() * 4)], []);
+  return (
+    <motion.div
+      className="absolute pointer-events-none text-2xl md:text-3xl"
+      style={{ left: `${x}%`, bottom: "15%" }}
+      initial={{ opacity: 0, y: 0 }}
+      animate={{ opacity: [0, 0.7, 0.7, 0], y: [-20, -80, -120, -160], x: [0, (Math.random() - 0.5) * 40] }}
+      transition={{ duration: 3, delay, repeat: Infinity, repeatDelay: 2 + Math.random() * 3 }}
+    >
+      {note}
+    </motion.div>
+  );
+};
+
 const BaraatSection = () => {
   const [expandedCard, setExpandedCard] = useState<number | null>(null);
 
+  const fireworks = useMemo(() => [
+    { x: 15, y: 12, delay: 0 },
+    { x: 80, y: 8, delay: 1.2 },
+    { x: 50, y: 15, delay: 2.5 },
+    { x: 30, y: 20, delay: 3.8 },
+    { x: 70, y: 18, delay: 1.8 },
+  ], []);
+
+  const confetti = useMemo(() => 
+    Array.from({ length: 20 }).map((_, i) => ({
+      delay: Math.random() * 5,
+      startX: Math.random() * 100,
+    })), []
+  );
+
+  const musicNotes = useMemo(() => [
+    { x: 10, delay: 0 }, { x: 25, delay: 1.5 }, { x: 45, delay: 0.8 },
+    { x: 60, delay: 2.2 }, { x: 75, delay: 1.1 }, { x: 90, delay: 3 },
+  ], []);
+
   return (
     <section className="relative min-h-screen py-24 overflow-hidden" style={{ background: "linear-gradient(135deg, hsl(345 65% 10%) 0%, hsl(345 60% 14%) 50%, hsl(345 65% 10%) 100%)" }}>
-      <GoldenElements />
-      <RosePetals />
+      
+      {/* Firework bursts */}
+      {fireworks.map((fw, i) => (
+        <FireworkBurst key={i} x={fw.x} y={fw.y} delay={fw.delay} />
+      ))}
+
+      {/* Confetti falling */}
+      <div className="absolute inset-0 pointer-events-none overflow-hidden">
+        {confetti.map((c, i) => (
+          <ConfettiPiece key={i} delay={c.delay} startX={c.startX} />
+        ))}
+      </div>
+
+      {/* Music notes floating up */}
+      {musicNotes.map((mn, i) => (
+        <MusicNote key={i} x={mn.x} delay={mn.delay} />
+      ))}
+
+      {/* Dhol players on sides */}
+      <DholPlayer side="left" />
+      <DholPlayer side="right" />
+
       {/* Subtle radial glow */}
-      <div className="absolute inset-0 pointer-events-none" style={{ background: "radial-gradient(ellipse at 50% 30%, hsl(43 80% 55% / 0.04) 0%, transparent 60%)" }} />
+      <div className="absolute inset-0 pointer-events-none" style={{ background: "radial-gradient(ellipse at 50% 30%, hsl(43 80% 55% / 0.06) 0%, transparent 60%)" }} />
 
       <div className="relative z-10 max-w-5xl mx-auto px-6 text-center">
         {/* Header */}
@@ -83,9 +205,15 @@ const BaraatSection = () => {
             className="flex gap-8 whitespace-nowrap"
           >
             {[...baraatCharacters, ...baraatCharacters].map((char, i) => (
-              <span key={i} className="text-5xl md:text-6xl inline-block opacity-70">
+              <motion.span
+                key={i}
+                className="text-5xl md:text-6xl inline-block"
+                animate={{ y: [0, -6, 0], scale: [1, 1.05, 1] }}
+                transition={{ duration: 0.8, delay: i * 0.15, repeat: Infinity, repeatDelay: 1 }}
+                style={{ opacity: 0.8 }}
+              >
                 {char}
-              </span>
+              </motion.span>
             ))}
           </motion.div>
         </div>
@@ -118,7 +246,6 @@ const BaraatSection = () => {
                 {event.desc}
               </p>
 
-              {/* View Details Button */}
               <button
                 onClick={() => setExpandedCard(expandedCard === index ? null : index)}
                 className="inline-flex items-center gap-1.5 px-4 py-2 rounded-lg text-sm font-body transition-all duration-300"
@@ -135,7 +262,6 @@ const BaraatSection = () => {
                 />
               </button>
 
-              {/* Expandable Details */}
               <AnimatePresence>
                 {expandedCard === index && (
                   <motion.div

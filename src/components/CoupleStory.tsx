@@ -1,12 +1,13 @@
-import { useState } from "react";
+import { useState, useRef } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import couplePortrait from "@/assets/couple-portrait.jpg";
 import storyFirstMeet from "@/assets/story-first-meet.png";
 import storyFirstDate from "@/assets/story-first-date.png";
 import storyProposal from "@/assets/story-proposal.png";
 import storyForever from "@/assets/story-forever.png";
-import RosePetals from "./RosePetals";
 import GoldenElements from "./GoldenElements";
+import RoyalRajasthanBackground from "./RoyalRajasthanBackground";
+import AnimatedRoyalBackground from "./AnimatedRoyalBackground";
 
 const timeline = [
   { year: "2019", title: "First Meeting", desc: "A chance encounter at a friend's wedding set the stars in motion.", image: storyFirstMeet },
@@ -17,20 +18,19 @@ const timeline = [
 
 const CoupleStory = () => {
   const [activeStory, setActiveStory] = useState<number | null>(null);
+  const sectionRef = useRef<HTMLElement>(null);
 
   return (
-    <section
-      className="relative min-h-screen py-24 overflow-hidden"
-      style={{
-        background: "linear-gradient(160deg, hsl(345 65% 10%), hsl(345 60% 14%), hsl(345 55% 11%))",
-      }}
-    >
+    <section ref={sectionRef} className="relative min-h-screen py-24 overflow-y-auto bg-transparent">
+      <RoyalRajasthanBackground sectionRef={sectionRef} />
+      <AnimatedRoyalBackground />
       <GoldenElements />
-      <RosePetals />
-      <div className="absolute inset-0 pointer-events-none" style={{
-        backgroundImage: `radial-gradient(circle at 30% 40%, hsl(43 80% 55% / 0.08) 0%, transparent 50%),
-                          radial-gradient(circle at 70% 70%, hsl(43 80% 55% / 0.05) 0%, transparent 45%)`
-      }} />
+      
+      {/* Background Decor */}
+      <div className="absolute inset-0 pointer-events-none opacity-20">
+        <div className="absolute top-0 right-0 w-64 h-64 bg-radial-gradient from-[#c3aa64]/10 to-transparent"></div>
+        <div className="absolute bottom-0 left-0 w-64 h-64 bg-radial-gradient from-[#c3aa64]/10 to-transparent"></div>
+      </div>
 
       <div className="max-w-6xl mx-auto px-6 relative z-10">
         {/* Header */}
@@ -40,18 +40,13 @@ const CoupleStory = () => {
           viewport={{ once: true }}
           className="text-center mb-20"
         >
-          <p className="font-body text-sm uppercase tracking-[0.4em] mb-4" style={{ color: "hsl(43 60% 65% / 0.7)" }}>Our Journey</p>
-          <h2
-            className="font-display text-5xl md:text-6xl mb-4"
-            style={{
-              background: "linear-gradient(90deg, hsl(43 70% 50%), hsl(43 90% 70%), hsl(43 70% 50%))",
-              backgroundSize: "200% 100%",
-              WebkitBackgroundClip: "text",
-              WebkitTextFillColor: "transparent",
-              animation: "shimmer-gold 4s linear infinite",
-            }}
-          >Love Story</h2>
-          <div className="mx-auto" style={{ width: 80, height: 2, background: "linear-gradient(90deg, transparent, hsl(43 80% 55%), transparent)" }} />
+          <p className="font-hindi text-[#e8dcb8] text-xl tracking-widest mb-4 drop-shadow-[0_2px_4px_rgba(0,0,0,0.8)]">
+            प्रेम कहानी
+          </p>
+          <h2 className="font-display text-5xl md:text-7xl text-[#c3aa64] glow-gold mb-6 animate-shimmer bg-clip-text">
+            Our Love Story
+          </h2>
+          <div className="ornament-line mx-auto drop-shadow-[0_0_5px_#c3aa64]" />
         </motion.div>
 
         {/* Two column: image + timeline */}
@@ -64,67 +59,60 @@ const CoupleStory = () => {
             transition={{ duration: 1 }}
             className="relative"
           >
-            <div className="relative rounded-2xl overflow-hidden" style={{ boxShadow: "0 8px 40px hsl(345 60% 8% / 0.6)" }}>
+            <div className="relative rounded-[2rem] overflow-hidden border-2 border-[#c3aa64]/30 shadow-[0_20px_50px_rgba(0,0,0,0.7)]">
               <AnimatePresence mode="wait">
                 <motion.img
                   key={activeStory !== null ? `story-${activeStory}` : "default"}
                   src={activeStory !== null ? timeline[activeStory].image : couplePortrait}
-                  alt={activeStory !== null ? timeline[activeStory].title : "Priya and Arjun"}
-                  className="w-full h-auto object-cover"
+                  alt={activeStory !== null ? timeline[activeStory].title : "Couple Story"}
+                  className="w-full h-[500px] object-cover"
                   loading="lazy"
-                  width={1024}
-                  height={1280}
-                  initial={{ opacity: 0, scale: 0.85, rotateY: -15 }}
+                  initial={{ opacity: 0, scale: 0.9, rotateY: -10 }}
                   animate={{ opacity: 1, scale: 1, rotateY: 0 }}
-                  exit={{ opacity: 0, scale: 0.85, rotateY: 15 }}
-                  transition={{ duration: 0.6, ease: [0.25, 0.46, 0.45, 0.94] }}
+                  exit={{ opacity: 0, scale: 0.9, rotateY: 10 }}
+                  transition={{ duration: 0.6 }}
                 />
               </AnimatePresence>
-              <div className="absolute inset-0" style={{ background: "linear-gradient(to top, hsl(345 60% 10% / 0.4), transparent)" }} />
+              <div className="absolute inset-x-0 bottom-0 h-40 bg-gradient-to-t from-[#1a0004]/80 to-transparent" />
             </div>
-            {/* Decorative frame accent */}
-            <div className="absolute -bottom-4 -right-4 w-full h-full rounded-2xl -z-10" style={{ border: "2px solid hsl(43 80% 55% / 0.25)" }} />
+            
+            {/* Decorative Arched Frame Accent */}
+            <div className="absolute -inset-4 border border-[#c3aa64]/20 rounded-[2.5rem] -z-10 pointer-events-none" />
 
-            {/* Floating sparkles when story is active */}
+            {/* Sparkle effects */}
             <AnimatePresence>
               {activeStory !== null && (
-                <>
-                  {[...Array(6)].map((_, i) => (
+                <div className="absolute inset-0 pointer-events-none">
+                  {[...Array(8)].map((_, i) => (
                     <motion.div
                       key={`sparkle-${i}`}
-                      className="absolute rounded-full"
+                      className="absolute w-2 h-2 bg-[#c3aa64] rounded-full shadow-[0_0_8px_rgba(195,170,100,0.8)]"
                       style={{
-                        width: 4 + Math.random() * 4,
-                        height: 4 + Math.random() * 4,
-                        background: "hsl(43 80% 65%)",
-                        left: `${15 + Math.random() * 70}%`,
-                        top: `${10 + Math.random() * 80}%`,
-                        boxShadow: "0 0 8px hsl(43 80% 55% / 0.6)",
+                        left: `${20 + Math.random() * 60}%`,
+                        top: `${20 + Math.random() * 60}%`,
                       }}
                       initial={{ opacity: 0, scale: 0 }}
                       animate={{
                         opacity: [0, 1, 0],
                         scale: [0, 1.5, 0],
-                        y: [0, -20, -40],
+                        y: [-20, -60],
                       }}
-                      exit={{ opacity: 0 }}
                       transition={{
                         duration: 2,
-                        delay: i * 0.3,
                         repeat: Infinity,
-                        repeatDelay: 1,
+                        delay: i * 0.2,
                       }}
                     />
                   ))}
-                </>
+                </div>
               )}
             </AnimatePresence>
           </motion.div>
 
           {/* Timeline */}
           <div className="relative">
-            {/* Vertical line */}
-            <div className="absolute left-4 top-0 bottom-0 w-px" style={{ background: "linear-gradient(180deg, transparent, hsl(43 80% 55% / 0.3), transparent)" }} />
+            {/* Vertical line with gradient */}
+            <div className="absolute left-6 top-0 bottom-0 w-1 bg-gradient-to-b from-[#c3aa64]/0 via-[#c3aa64]/30 to-[#c3aa64]/0 rounded-full" />
 
             <div className="space-y-12">
               {timeline.map((item, idx) => {
@@ -136,52 +124,45 @@ const CoupleStory = () => {
                     whileInView={{ opacity: 1, x: 0 }}
                     viewport={{ once: true }}
                     transition={{ duration: 0.6, delay: idx * 0.15 }}
-                    className="relative pl-12 cursor-pointer select-none"
+                    className="relative pl-16 cursor-pointer group"
                     onClick={() => setActiveStory(isActive ? null : idx)}
-                    whileHover={{ x: 6 }}
                   >
-                    {/* Dot */}
-                    <motion.div
-                      className="absolute left-2.5 top-1 w-3 h-3 rounded-full"
-                      style={{
-                        background: "hsl(43 80% 55%)",
-                        border: "2px solid hsl(345 60% 12%)",
-                        boxShadow: isActive
-                          ? "0 0 16px hsl(43 80% 55% / 0.8), 0 0 30px hsl(43 80% 55% / 0.4)"
-                          : "0 0 8px hsl(43 80% 55% / 0.4)",
-                      }}
-                      animate={{
-                        scale: isActive ? [1, 1.4, 1] : 1,
-                      }}
-                      transition={{ duration: 1.5, repeat: isActive ? Infinity : 0 }}
-                    />
-                    <p className="font-body text-sm font-semibold tracking-widest mb-1" style={{ color: "hsl(43 70% 60%)" }}>{item.year}</p>
-                    <h3
-                      className="font-display text-2xl mb-2 transition-colors duration-300"
-                      style={{ color: isActive ? "hsl(43 80% 60%)" : "hsl(43 50% 72%)" }}
-                    >
-                      {item.title}
-                    </h3>
-                    <p className="font-body leading-relaxed" style={{ color: "hsl(40 30% 80% / 0.75)" }}>{item.desc}</p>
-
-                    {/* Active indicator */}
-                    <AnimatePresence>
+                    {/* Golden Dot */}
+                    <div className="absolute left-[1.125rem] top-1 flex items-center justify-center">
+                      <motion.div
+                        className="w-5 h-5 rounded-full border-2 border-[#c3aa64] bg-[#3b000b] z-20"
+                        animate={{
+                          scale: isActive ? 1.5 : 1,
+                          backgroundColor: isActive ? "#c3aa64" : "#3b000b",
+                          boxShadow: isActive ? "0 0 20px #c3aa64" : "none",
+                        }}
+                      />
                       {isActive && (
-                        <motion.div
-                          initial={{ width: 0, opacity: 0 }}
-                          animate={{ width: 60, opacity: 1 }}
-                          exit={{ width: 0, opacity: 0 }}
-                          transition={{ duration: 0.4 }}
-                          className="mt-3 h-0.5 rounded-full"
-                          style={{ background: "linear-gradient(90deg, hsl(43 80% 55%), transparent)" }}
+                        <motion.div 
+                          className="absolute w-10 h-10 rounded-full bg-[#c3aa64]/20 -z-10"
+                          animate={{ scale: [1, 1.6, 1] }}
+                          transition={{ duration: 2, repeat: Infinity }}
                         />
                       )}
-                    </AnimatePresence>
+                    </div>
 
-                    {/* Tap hint */}
-                    <p className="font-body text-xs mt-2 opacity-50" style={{ color: "hsl(43 60% 60%)" }}>
-                      {isActive ? "✨ Tap to close" : "Tap to see the moment"}
-                    </p>
+                    <div className="bg-[#1f0005]/40 backdrop-blur-md p-6 rounded-2xl border border-[#c3aa64]/10 hover:border-[#c3aa64]/40 transition-all duration-500 shadow-lg group-hover:shadow-[0_10px_30px_rgba(0,0,0,0.4)]">
+                      <p className="font-body text-[#c3aa64] font-bold text-sm tracking-widest mb-2">{item.year}</p>
+                      <h3
+                        className={`font-display text-2xl md:text-3xl mb-3 transition-all duration-300 ${isActive ? "text-[#f4e2b0] glow-gold" : "text-[#e8dcb8]/80 group-hover:text-[#c3aa64]"}`}
+                      >
+                        {item.title}
+                      </h3>
+                      <p className="font-body text-[#e8dcb8]/70 leading-relaxed italic">{item.desc}</p>
+                      
+                      {isActive && (
+                        <motion.div 
+                          initial={{ scaleX: 0 }}
+                          animate={{ scaleX: 1 }}
+                          className="h-0.5 w-1/4 bg-[#c3aa64] mt-4 origin-left"
+                        />
+                      )}
+                    </div>
                   </motion.div>
                 );
               })}

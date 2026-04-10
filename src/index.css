@@ -6,12 +6,12 @@
 
 @layer base {
   :root {
-    /* Default / Luxury theme base */
-    --background: 0 0% 100%;
-    --foreground: 0 0% 8%;
-    --card: 0 0% 100%;
-    --card-foreground: 0 0% 8%;
-    --popover: 0 0% 100%;
+    /* Global Royal Theme */
+    --background: 350 70% 18%; /* Rich Vibrant Maroon */
+    --foreground: 44 44% 58%; /* #c3aa64 Gold */
+    --card: 350 70% 15%;
+    --card-foreground: 44 44% 58%;
+    --popover: 350 70% 12%;
     --popover-foreground: 0 0% 8%;
     --primary: 0 0% 8%;
     --primary-foreground: 0 0% 98%;
@@ -31,11 +31,11 @@
     /* ===== WEDDING THEME TOKENS ===== */
 
     /* Royal */
-    --royal-bg: 345 60% 12%;
-    --royal-bg-deep: 345 65% 8%;
-    --royal-gold: 43 80% 55%;
-    --royal-gold-light: 43 70% 72%;
-    --royal-maroon: 345 60% 22%;
+    --royal-bg: 345 75% 15%;
+    --royal-bg-deep: 345 80% 10%;
+    --royal-gold: 43 85% 58%;
+    --royal-gold-light: 43 75% 75%;
+    --royal-maroon: 345 70% 25%;
     --royal-cream: 40 40% 92%;
 
     /* Temple */
@@ -93,43 +93,62 @@
     @apply bg-background;
     font-family: var(--font-body);
     overflow-x: hidden;
-    color: hsl(43 80% 55%);
+    color: #c3aa64;
+    background-color: #5a0001; /* Rich Deep Maroon */
   }
   h1, h2, h3, h4, h5, h6 {
     font-family: var(--font-display);
-    background: linear-gradient(135deg, hsl(43 90% 65%), hsl(43 80% 50%), hsl(45 95% 70%), hsl(43 80% 50%));
-    background-size: 200% 100%;
+    /* Complex Golden Glitter Gradient */
+    background: linear-gradient(
+      135deg, 
+      #d4af37 0%, 
+      #f9e29c 20%, 
+      #b8860b 40%, 
+      #fff8e1 50%, 
+      #d4af37 60%, 
+      #f9e29c 80%, 
+      #b8860b 100%
+    );
+    background-size: 200% auto;
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
-    animation: shimmer 3s linear infinite;
+    animation: glitter 4s linear infinite;
+    filter: drop-shadow(0 0 2px rgba(255, 215, 0, 0.4));
   }
   p, span, a, li, label, button {
     color: hsl(43 70% 60%);
   }
+
+  /* Custom Selection */
+  ::selection {
+    background-color: #c3aa64;
+    color: #2a0007;
+  }
+
+  /* Custom Scrollbar */
+  ::-webkit-scrollbar {
+    width: 8px;
+  }
+  ::-webkit-scrollbar-track {
+    background: #1a0004;
+  }
+  ::-webkit-scrollbar-thumb {
+    background: linear-gradient(to bottom, #c3aa64, #8b6e3d);
+    border-radius: 10px;
+    border: 2px solid #1a0004;
+  }
+  ::-webkit-scrollbar-thumb:hover {
+    background: #f4e2b0;
+  }
 }
 
 @layer components {
-  /* Section themes */
-  .section-royal {
-    background: hsl(var(--royal-bg));
-    color: hsl(var(--royal-cream));
+  /* Section themes all map to translucent or nothing so global maroon shows */
+  .section-royal, .section-temple, .section-floral, .section-baraat, .section-luxury {
+    background: transparent;
+    color: #c3aa64;
   }
-  .section-temple {
-    background: hsl(var(--temple-bg));
-    color: hsl(var(--temple-deep));
-  }
-  .section-floral {
-    background: hsl(var(--floral-bg));
-    color: hsl(var(--floral-green));
-  }
-  .section-baraat {
-    background: hsl(var(--baraat-bg));
-    color: hsl(var(--baraat-cream));
-  }
-  .section-luxury {
-    background: hsl(var(--luxury-bg));
-    color: hsl(var(--luxury-cream));
-  }
+
 
   /* Gold text utility */
   .text-royal-gold {
@@ -180,9 +199,10 @@
     0% { transform: translateY(-100vh) rotate(0deg); opacity: 1; }
     100% { transform: translateY(100vh) rotate(720deg); opacity: 0; }
   }
-  @keyframes shimmer {
-    0% { background-position: -200% 0; }
-    100% { background-position: 200% 0; }
+  @keyframes glitter {
+    0% { background-position: 0% 50%; }
+    50% { background-position: 100% 50%; }
+    100% { background-position: 0% 50%; }
   }
   .animate-float { animation: float 6s ease-in-out infinite; }
   .animate-float-slow { animation: float-slow 8s ease-in-out infinite; }

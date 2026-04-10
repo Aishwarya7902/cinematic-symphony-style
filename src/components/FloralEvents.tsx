@@ -1,8 +1,9 @@
-import { useState } from "react";
+import { useState, useRef } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { ChevronLeft, ChevronRight, X } from "lucide-react";
-import RosePetals from "./RosePetals";
 import GoldenElements from "./GoldenElements";
+import RoyalRajasthanBackground from "./RoyalRajasthanBackground";
+import AnimatedRoyalBackground from "./AnimatedRoyalBackground";
 
 import eventMehendi from "@/assets/event-mehendi.jpg";
 import eventHaldi from "@/assets/event-haldi.jpg";
@@ -72,6 +73,7 @@ const FloralEvents = () => {
   const [active, setActive] = useState(0);
   const [revealed, setRevealed] = useState<number | null>(null);
   const [showImage, setShowImage] = useState<number | null>(null);
+  const sectionRef = useRef<HTMLElement>(null);
 
   const prev = () => {
     setRevealed(null);
@@ -94,20 +96,16 @@ const FloralEvents = () => {
   };
 
   return (
-    <section
-      className="relative min-h-screen py-24 overflow-hidden"
-      style={{
-        background: "linear-gradient(165deg, hsl(345 65% 10%) 0%, hsl(345 55% 16%) 50%, hsl(345 65% 10%) 100%)",
-      }}
-    >
+    <section ref={sectionRef} className="relative min-h-screen py-24 overflow-y-auto bg-transparent">
+      <RoyalRajasthanBackground sectionRef={sectionRef} />
+      <AnimatedRoyalBackground />
       <GoldenElements />
-      <RosePetals />
-      <div
-        className="absolute inset-0 pointer-events-none"
-        style={{
-          background: "radial-gradient(ellipse at 50% 30%, hsl(43 80% 55% / 0.06) 0%, transparent 60%)",
-        }}
-      />
+      
+      {/* Background Decor */}
+      <div className="absolute inset-0 pointer-events-none opacity-20">
+        <div className="absolute top-0 left-0 w-full h-32 bg-gradient-to-b from-[#1a0004] to-transparent"></div>
+        <div className="absolute bottom-0 left-0 w-full h-32 bg-gradient-to-t from-[#1a0004] to-transparent"></div>
+      </div>
 
       <div className="relative z-10 max-w-6xl mx-auto px-6">
         {/* Header */}
@@ -117,22 +115,13 @@ const FloralEvents = () => {
           viewport={{ once: true }}
           className="text-center mb-20"
         >
-          <p className="font-body text-sm uppercase tracking-[0.4em] mb-4" style={{ color: "hsl(43 70% 72%)" }}>
-            Pre-Wedding & Wedding Celebrations
+          <p className="font-hindi text-[#e8dcb8] text-xl tracking-widest mb-4 drop-shadow-[0_2px_4px_rgba(0,0,0,0.8)]">
+            उत्सव
           </p>
-          <h2
-            className="font-display text-5xl md:text-6xl mb-4"
-            style={{
-              background: "linear-gradient(135deg, hsl(43 80% 55%), hsl(43 60% 70%), hsl(43 80% 55%))",
-              backgroundSize: "200% 100%",
-              WebkitBackgroundClip: "text",
-              WebkitTextFillColor: "transparent",
-              animation: "shimmer 4s linear infinite",
-            }}
-          >
+          <h2 className="font-display text-5xl md:text-7xl text-[#c3aa64] glow-gold mb-6 animate-shimmer bg-clip-text">
             Events & Festivities
           </h2>
-          <div className="ornament-line mx-auto mt-4" />
+          <div className="ornament-line mx-auto drop-shadow-[0_0_5px_#c3aa64]" />
         </motion.div>
 
         {/* 3D Carousel */}
@@ -160,20 +149,16 @@ const FloralEvents = () => {
                 whileHover={isActive ? { scale: 1.03, y: -4 } : {}}
               >
                 <div
-                  className="rounded-2xl p-8 md:p-10 border backdrop-blur-sm"
+                  className={`rounded-2xl p-8 md:p-10 border backdrop-blur-sm shadow-[0_20px_50px_rgba(0,0,0,0.5)] transition-shadow duration-500 ${isActive ? "shadow-[0_0_30px_rgba(195,170,100,0.4)] border-[#c3aa64]/60" : "border-[#c3aa64]/25"}`}
                   style={{
-                    background: "linear-gradient(160deg, hsl(345 55% 18%) 0%, hsl(345 50% 14%) 100%)",
-                    borderColor: "hsl(43 80% 55% / 0.25)",
-                    boxShadow: isActive
-                      ? "0 20px 50px hsl(345 60% 8% / 0.6), 0 0 30px hsl(43 80% 55% / 0.08)"
-                      : "0 10px 30px hsl(345 60% 8% / 0.4)",
+                    background: "linear-gradient(160deg, #1f0005 0%, #1a0004 100%)",
                   }}
                 >
                   <span className="text-5xl mb-5 block">{event.emoji}</span>
-                  <h3 className="font-display text-2xl md:text-3xl mb-3" style={{ color: "hsl(43 80% 55%)" }}>
+                  <h3 className="font-display text-2xl md:text-3xl mb-3 text-[#c3aa64] glow-gold">
                     {event.title}
                   </h3>
-                  <p className="font-body text-sm leading-relaxed mb-6" style={{ color: "hsl(40 30% 85%)" }}>
+                  <p className="font-body text-sm leading-relaxed mb-6 text-[#e8dcb8]/80">
                     {event.desc}
                   </p>
 
@@ -187,26 +172,18 @@ const FloralEvents = () => {
                         className="overflow-hidden"
                       >
                         <div
-                          className="border-t pt-5 mt-2 space-y-2 font-body text-sm"
-                          style={{ borderColor: "hsl(43 80% 55% / 0.2)" }}
+                          className="border-t pt-5 mt-2 space-y-2 font-body text-sm border-[#c3aa64]/20"
                         >
-                          <p style={{ color: "hsl(43 70% 65%)" }} className="font-semibold">📅 {event.date}</p>
-                          <p style={{ color: "hsl(40 30% 80%)" }}>🕓 {event.time}</p>
-                          <p style={{ color: "hsl(40 30% 80%)" }}>📍 {event.venue}</p>
+                          <p className="text-[#c3aa64] font-semibold">📅 {event.date}</p>
+                          <p className="text-[#e8dcb8]">🕓 {event.time}</p>
+                          <p className="text-[#e8dcb8]">📍 {event.venue}</p>
                         </div>
                         {/* View Animation Button */}
                         <motion.button
                           initial={{ opacity: 0, y: 10 }}
                           animate={{ opacity: 1, y: 0 }}
                           transition={{ delay: 0.2 }}
-                          className="mt-4 w-full px-6 py-3 rounded-full font-body text-sm font-medium transition-all duration-300"
-                          style={{
-                            background: "linear-gradient(135deg, hsl(43 80% 55%), hsl(43 60% 45%))",
-                            color: "hsl(345 65% 10%)",
-                            boxShadow: "0 4px 15px hsl(43 80% 55% / 0.3)",
-                          }}
-                          whileHover={{ scale: 1.05, boxShadow: "0 6px 20px hsl(43 80% 55% / 0.4)" }}
-                          whileTap={{ scale: 0.97 }}
+                          className="mt-4 w-full px-6 py-3 rounded-full font-body text-sm font-medium transition-all duration-300 bg-[#c3aa64] text-[#1a0004] shadow-[0_4px_15px_rgba(195,170,100,0.3)] hover:scale-105"
                           onClick={(e) => {
                             e.stopPropagation();
                             setShowImage(idx);
@@ -219,14 +196,7 @@ const FloralEvents = () => {
                       <motion.button
                         initial={{ opacity: 0 }}
                         animate={{ opacity: 1 }}
-                        className="mt-2 px-6 py-2.5 rounded-full font-body text-sm font-medium transition-all duration-300"
-                        style={{
-                          background: "linear-gradient(135deg, hsl(43 80% 55%), hsl(43 60% 45%))",
-                          color: "hsl(345 65% 10%)",
-                          boxShadow: "0 4px 15px hsl(43 80% 55% / 0.3)",
-                        }}
-                        whileHover={{ scale: 1.05, boxShadow: "0 6px 20px hsl(43 80% 55% / 0.4)" }}
-                        whileTap={{ scale: 0.97 }}
+                        className="mt-2 px-6 py-2.5 rounded-full font-body text-sm font-medium transition-all duration-300 border border-[#c3aa64] text-[#c3aa64] hover:bg-[#c3aa64] hover:text-[#1a0004]"
                         onClick={(e) => {
                           e.stopPropagation();
                           setRevealed(idx);
@@ -246,15 +216,13 @@ const FloralEvents = () => {
         <div className="flex justify-center gap-6 mt-12">
           <button
             onClick={prev}
-            className="w-12 h-12 rounded-full flex items-center justify-center border transition-all duration-300 hover:scale-110"
-            style={{ borderColor: "hsl(43 80% 55% / 0.4)", color: "hsl(43 80% 55%)", background: "hsl(345 55% 14% / 0.8)" }}
+            className="w-12 h-12 rounded-full flex items-center justify-center border border-[#c3aa64]/40 text-[#c3aa64] bg-[#1a0004]/80 transition-all duration-300 hover:scale-110"
           >
             <ChevronLeft className="w-5 h-5" />
           </button>
           <button
             onClick={next}
-            className="w-12 h-12 rounded-full flex items-center justify-center border transition-all duration-300 hover:scale-110"
-            style={{ borderColor: "hsl(43 80% 55% / 0.4)", color: "hsl(43 80% 55%)", background: "hsl(345 55% 14% / 0.8)" }}
+            className="w-12 h-12 rounded-full flex items-center justify-center border border-[#c3aa64]/40 text-[#c3aa64] bg-[#1a0004]/80 transition-all duration-300 hover:scale-110"
           >
             <ChevronRight className="w-5 h-5" />
           </button>
@@ -266,11 +234,7 @@ const FloralEvents = () => {
             <button
               key={idx}
               onClick={() => { setRevealed(null); setActive(idx); }}
-              className="w-2.5 h-2.5 rounded-full transition-all duration-300"
-              style={{
-                background: idx === active ? "hsl(43 80% 55%)" : "hsl(43 80% 55% / 0.25)",
-                boxShadow: idx === active ? "0 0 10px hsl(43 80% 55% / 0.5)" : "none",
-              }}
+              className={`w-2.5 h-2.5 rounded-full transition-all duration-300 ${idx === active ? "bg-[#c3aa64] scale-125 glow-gold" : "bg-[#c3aa64]/25"}`}
             />
           ))}
         </div>
@@ -284,91 +248,40 @@ const FloralEvents = () => {
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
             transition={{ duration: 0.4 }}
-            className="fixed inset-0 z-50 flex items-center justify-center p-4"
-            style={{ background: "hsl(345 65% 6% / 0.92)", backdropFilter: "blur(12px)" }}
+            className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/95 backdrop-blur-md"
             onClick={() => setShowImage(null)}
           >
-            {/* Floating sparkles */}
-            {Array.from({ length: 12 }).map((_, i) => (
-              <motion.div
-                key={i}
-                className="absolute w-1.5 h-1.5 rounded-full"
-                style={{
-                  background: "hsl(43 80% 55%)",
-                  left: `${10 + Math.random() * 80}%`,
-                  top: `${10 + Math.random() * 80}%`,
-                  boxShadow: "0 0 8px hsl(43 80% 55% / 0.6)",
-                }}
-                animate={{
-                  y: [0, -30, 0],
-                  opacity: [0.3, 1, 0.3],
-                  scale: [0.8, 1.3, 0.8],
-                }}
-                transition={{
-                  duration: 2 + Math.random() * 2,
-                  repeat: Infinity,
-                  delay: Math.random() * 2,
-                }}
-              />
-            ))}
-
             <motion.div
-              initial={{ scale: 0.5, rotateY: 90, opacity: 0 }}
-              animate={{ scale: 1, rotateY: 0, opacity: 1 }}
-              exit={{ scale: 0.5, rotateY: -90, opacity: 0 }}
-              transition={{ duration: 0.6, ease: [0.25, 0.46, 0.45, 0.94] }}
+              initial={{ scale: 0.5, opacity: 0 }}
+              animate={{ scale: 1, opacity: 1 }}
+              exit={{ scale: 0.5, opacity: 0 }}
               className="relative max-w-lg w-full"
               onClick={(e) => e.stopPropagation()}
             >
-              {/* Close button */}
               <button
                 onClick={() => setShowImage(null)}
-                className="absolute -top-4 -right-4 z-10 w-10 h-10 rounded-full flex items-center justify-center border transition-all hover:scale-110"
-                style={{
-                  background: "hsl(345 55% 14%)",
-                  borderColor: "hsl(43 80% 55% / 0.4)",
-                  color: "hsl(43 80% 55%)",
-                }}
+                className="absolute -top-4 -right-4 z-10 w-10 h-10 rounded-full flex items-center justify-center border border-[#c3aa64]/40 bg-[#1a0004] text-[#c3aa64]"
               >
                 <X className="w-5 h-5" />
               </button>
 
-              {/* Image with golden border */}
-              <div
-                className="rounded-2xl overflow-hidden border-2"
-                style={{
-                  borderColor: "hsl(43 80% 55% / 0.4)",
-                  boxShadow: "0 0 60px hsl(43 80% 55% / 0.15), 0 20px 60px hsl(345 60% 6% / 0.5)",
-                }}
-              >
-                <motion.img
+              <div className="rounded-2xl overflow-hidden border-2 border-[#c3aa64]/40 shadow-[0_0_60px_rgba(195,170,100,0.15)]">
+                <img
                   src={events[showImage].image}
                   alt={events[showImage].title}
                   className="w-full aspect-square object-cover"
-                  loading="lazy"
-                  width={768}
-                  height={768}
-                  initial={{ scale: 1.2 }}
-                  animate={{ scale: 1 }}
-                  transition={{ duration: 0.8, ease: "easeOut" }}
                 />
               </div>
 
-              {/* Title below image */}
-              <motion.div
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ delay: 0.3 }}
-                className="text-center mt-6"
-              >
+              <div className="text-center mt-6">
                 <span className="text-4xl mb-2 block">{events[showImage].emoji}</span>
-                <h3 className="font-display text-3xl" style={{ color: "hsl(43 80% 55%)" }}>
+                <h3 className="font-display text-3xl text-[#c3aa64] glow-gold">
                   {events[showImage].title}
                 </h3>
-                <p className="font-body text-sm mt-2" style={{ color: "hsl(40 30% 80%)" }}>
+                <p className="font-body text-lg text-[#e8dcb8] mt-2">
                   {events[showImage].desc}
                 </p>
-              </motion.div>
+              </div>
             </motion.div>
           </motion.div>
         )}

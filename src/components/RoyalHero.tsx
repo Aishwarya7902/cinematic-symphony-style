@@ -1,13 +1,16 @@
+import { useState, useRef } from "react";
 import { motion } from "framer-motion";
 import royalPalace from "@/assets/royal-palace.jpg";
-import RosePetals from "./RosePetals";
 import GoldenElements from "./GoldenElements";
+import RoyalRajasthanBackground from "./RoyalRajasthanBackground";
 
 const RoyalHero = () => {
+  const [isCoupleMet, setIsCoupleMet] = useState(false);
+  const sectionRef = useRef<HTMLElement>(null);
   return (
-    <section className="section-royal relative min-h-screen flex items-center justify-center overflow-hidden">
+    <section ref={sectionRef} className="section-royal relative min-h-screen flex items-center justify-center overflow-y-auto">
+      <RoyalRajasthanBackground sectionRef={sectionRef} />
       <GoldenElements />
-      <RosePetals />
       {/* Background image with overlay */}
       <div className="absolute inset-0">
         <img
@@ -42,56 +45,114 @@ const RoyalHero = () => {
           className="ornament-line mx-auto mb-10"
         />
 
-        {/* Main text */}
-        <motion.p
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          transition={{ duration: 1, delay: 0.8 }}
-          className="text-royal-gold-light/80 font-body text-sm uppercase tracking-[0.4em] mb-4"
-        >
-          You are cordially invited to the wedding of
-        </motion.p>
+        {/* Couple Animation - They walk towards each other */}
+        <div className="relative h-48 md:h-64 w-full mx-auto mb-8 flex items-center justify-center overflow-hidden">
+          {/* Bride/Left half sliding right */}
+          <motion.div
+            initial={{ x: -100, opacity: 0 }}
+            animate={{ x: 0, opacity: 1 }}
+            transition={{ duration: 1.5, ease: "easeOut", delay: 0.5 }}
+            className="absolute z-10 w-48 h-48 md:w-64 md:h-64"
+          >
+            <div 
+              className="w-full h-full bg-no-repeat bg-contain bg-center" 
+              style={{ 
+                backgroundImage: "url('/indian_wedding_couple.png')",
+                clipPath: "inset(0 50% 0 0)"
+              }} 
+            />
+          </motion.div>
 
-        <motion.h1
-          initial={{ opacity: 0, y: 30 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 1.2, delay: 1 }}
-          className="font-display text-6xl md:text-8xl lg:text-9xl text-royal-gold glow-gold mb-4 leading-tight"
-        >
-          Priya
-        </motion.h1>
+          {/* Groom/Right half sliding left */}
+          <motion.div
+            initial={{ x: 100, opacity: 0 }}
+            animate={{ x: 0, opacity: 1 }}
+            transition={{ duration: 1.5, ease: "easeOut", delay: 0.5 }}
+            onAnimationComplete={() => setIsCoupleMet(true)}
+            className="absolute z-10 w-48 h-48 md:w-64 md:h-64"
+          >
+            <div 
+              className="w-full h-full bg-no-repeat bg-contain bg-center" 
+              style={{ 
+                backgroundImage: "url('/indian_wedding_couple.png')",
+                clipPath: "inset(0 0 0 50%)"
+              }} 
+            />
+          </motion.div>
+          
+          {/* Sparkler/glow effect when they meet */}
+          {isCoupleMet && (
+            <motion.div
+              initial={{ scale: 0, opacity: 0 }}
+              animate={{ scale: [1, 2, 1.5], opacity: [0, 0.6, 0] }}
+              transition={{ duration: 1 }}
+              className="absolute w-40 h-40 bg-[#c3aa64] rounded-full blur-[40px] z-0 mix-blend-screen"
+            />
+          )}
+        </div>
 
-        <motion.p
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          transition={{ duration: 1, delay: 1.3 }}
-          className="text-royal-gold-light/70 font-display italic text-2xl md:text-3xl mb-4"
-        >
-          &
-        </motion.p>
+        {/* Text reveals only after they meet */}
+        {isCoupleMet && (
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ duration: 1 }}
+          >
+            <p className="text-[#e8dcb8] font-hindi text-xl md:text-2xl mb-4 leading-relaxed drop-shadow-[0_2px_4px_rgba(0,0,0,0.8)]">
+              With joyous hearts, we invite you to celebrate the beautiful union of
+            </p>
 
-        <motion.h1
-          initial={{ opacity: 0, y: 30 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 1.2, delay: 1.5 }}
-          className="font-display text-6xl md:text-8xl lg:text-9xl text-royal-gold glow-gold mb-10 leading-tight"
-        >
-          Arjun
-        </motion.h1>
+            <motion.h1
+              initial={{ opacity: 0, y: 30 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 1.2 }}
+              className="font-display text-5xl md:text-7xl lg:text-8xl text-[#c3aa64] glow-gold mb-2 leading-tight drop-shadow-[0_4px_10px_rgba(0,0,0,0.8)]"
+            >
+              Priya
+            </motion.h1>
 
-        {/* Date */}
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 1, delay: 1.8 }}
-          className="flex items-center justify-center gap-6 text-royal-gold-light/80"
-        >
-          <span className="ornament-line w-12" />
-          <span className="font-body text-sm uppercase tracking-[0.3em]">
-            15 · December · 2026
-          </span>
-          <span className="ornament-line w-12" />
-        </motion.div>
+            <motion.p
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              transition={{ duration: 1, delay: 0.3 }}
+              className="text-[#c3aa64]/80 font-display italic text-3xl md:text-4xl mb-2 drop-shadow-[0_2px_5px_rgba(0,0,0,0.8)]"
+            >
+              &
+            </motion.p>
+
+            <motion.h1
+              initial={{ opacity: 0, y: 30 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 1.2, delay: 0.5 }}
+              className="font-display text-5xl md:text-7xl lg:text-8xl text-[#c3aa64] glow-gold mb-8 leading-tight drop-shadow-[0_4px_10px_rgba(0,0,0,0.8)]"
+            >
+              Arjun
+            </motion.h1>
+
+            {/* Date */}
+            <motion.div
+              initial={{ opacity: 0, y: 20, scale: 0.8 }}
+              animate={{ opacity: 1, y: 0, scale: 1 }}
+              transition={{ duration: 1, delay: 1, type: "spring", stiffness: 100 }}
+              className="flex items-center justify-center gap-6 text-[#f4e2b0] mb-6"
+            >
+              <span className="ornament-line w-12 hidden md:block" />
+              <span className="font-body text-xl md:text-3xl font-semibold uppercase tracking-[0.2em] drop-shadow-[0_2px_5px_rgba(0,0,0,0.8)]">
+                15 · Dec · 2026
+              </span>
+              <span className="ornament-line w-12 hidden md:block" />
+            </motion.div>
+            
+            <motion.p 
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 1, delay: 1.5 }}
+              className="text-[#e8dcb8]/90 font-hindi italic text-lg md:text-xl drop-shadow-[0_2px_4px_rgba(0,0,0,0.8)]"
+            >
+              Let's create memories that will last a lifetime.
+            </motion.p>
+          </motion.div>
+        )}
 
         {/* Scroll indicator */}
         <motion.div

@@ -146,23 +146,42 @@ const CoupleStory = () => {
                       )}
                     </div>
 
-                    <div className="bg-[#1f0005]/40 backdrop-blur-md p-6 rounded-2xl border border-[#c3aa64]/10 hover:border-[#c3aa64]/40 transition-all duration-500 shadow-lg group-hover:shadow-[0_10px_30px_rgba(0,0,0,0.4)]">
-                      <p className="font-body text-[#c3aa64] font-bold text-sm tracking-widest mb-2">{item.year}</p>
+                    <motion.div 
+                      className={`bg-[#1f0005]/60 backdrop-blur-xl p-6 rounded-2xl border transition-all duration-500 shadow-xl group-hover:shadow-[0_15px_40px_rgba(0,0,0,0.5)] relative overflow-hidden ${isActive ? "border-[#c3aa64]/60 shadow-[0_0_30px_rgba(195,170,100,0.2)]" : "border-[#c3aa64]/10 hover:border-[#c3aa64]/30"}`}
+                      animate={isActive ? {
+                        boxShadow: [
+                          "0 0 20px rgba(195, 170, 100, 0.1)",
+                          "0 0 40px rgba(195, 170, 100, 0.25)",
+                          "0 0 20px rgba(195, 170, 100, 0.1)"
+                        ]
+                      } : {}}
+                      transition={{ duration: 4, repeat: Infinity, ease: "easeInOut" }}
+                    >
+                      {/* Suble Glow Orb for Active Item */}
+                      {isActive && (
+                        <motion.div 
+                          animate={{ opacity: [0.1, 0.3, 0.1] }}
+                          transition={{ duration: 4, repeat: Infinity }}
+                          className="absolute -top-10 -right-10 w-32 h-32 bg-[#c3aa64]/20 blur-[40px] rounded-full pointer-events-none" 
+                        />
+                      )}
+
+                      <p className="font-body text-[#c3aa64] font-bold text-sm tracking-widest mb-2 relative z-10">{item.year}</p>
                       <h3
-                        className={`font-display text-2xl md:text-3xl mb-3 transition-all duration-300 ${isActive ? "text-[#f4e2b0] glow-gold" : "text-[#e8dcb8]/80 group-hover:text-[#c3aa64]"}`}
+                        className={`font-display text-2xl md:text-3xl mb-3 transition-all duration-300 relative z-10 ${isActive ? "text-[#f4e2b0] glow-gold" : "text-[#e8dcb8]/80 group-hover:text-[#c3aa64]"}`}
                       >
                         {item.title}
                       </h3>
-                      <p className="font-body text-[#e8dcb8]/70 leading-relaxed italic">{item.desc}</p>
+                      <p className="font-body text-[#e8dcb8]/70 leading-relaxed italic relative z-10">{item.desc}</p>
 
                       {isActive && (
                         <motion.div
                           initial={{ scaleX: 0 }}
                           animate={{ scaleX: 1 }}
-                          className="h-0.5 w-1/4 bg-[#c3aa64] mt-4 origin-left"
+                          className="h-0.5 w-1/4 bg-[#c3aa64] mt-4 origin-left relative z-10 shadow-[0_0_10px_#c3aa64]"
                         />
                       )}
-                    </div>
+                    </motion.div>
                   </motion.div>
                 );
               })}

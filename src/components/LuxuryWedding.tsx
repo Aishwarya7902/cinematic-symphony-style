@@ -72,9 +72,28 @@ const LuxuryWedding = () => {
             >
               <motion.div
                 className="w-24 h-24 md:w-32 md:h-32 flex flex-col items-center justify-center rounded-2xl bg-[#1a0004]/80 backdrop-blur-xl border border-[#c3aa64]/40 shadow-[0_15px_35px_rgba(0,0,0,0.6)] group hover:border-[#c3aa64] transition-all duration-500 overflow-hidden relative"
-                animate={{ borderColor: ["rgba(195, 170, 100, 0.4)", "rgba(244, 226, 176, 0.8)", "rgba(195, 170, 100, 0.4)"] }}
-                transition={{ duration: 3, repeat: Infinity, ease: "easeInOut" }}
+                animate={{ 
+                  borderColor: ["rgba(195, 170, 100, 0.4)", "rgba(244, 226, 176, 0.8)", "rgba(195, 170, 100, 0.4)"],
+                  boxShadow: [
+                    "0 0 20px rgba(195, 170, 100, 0.1)",
+                    "0 0 40px rgba(195, 170, 100, 0.3)",
+                    "0 0 20px rgba(195, 170, 100, 0.1)"
+                  ]
+                }}
+                transition={{ duration: 4, repeat: Infinity, ease: "easeInOut", delay: i * 0.5 }}
               >
+                {/* Dynamic Spotlight Effect */}
+                <motion.div 
+                  className="absolute inset-0 bg-[radial-gradient(circle_at_var(--mouse-x,50%)_var(--mouse-y,50%),rgba(195,170,100,0.15),transparent_70%)] opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none"
+                  onMouseMove={(e) => {
+                    const rect = e.currentTarget.getBoundingClientRect();
+                    const x = ((e.clientX - rect.left) / rect.width) * 100;
+                    const y = ((e.clientY - rect.top) / rect.height) * 100;
+                    e.currentTarget.style.setProperty('--mouse-x', `${x}%`);
+                    e.currentTarget.style.setProperty('--mouse-y', `${y}%`);
+                  }}
+                />
+
                 <div className="absolute inset-x-0 bottom-0 h-1 bg-gradient-to-r from-transparent via-[#c3aa64] to-transparent opacity-30 group-hover:opacity-100 transition-opacity duration-500" />
                 
                 <AnimatePresence mode="wait">
@@ -84,13 +103,13 @@ const LuxuryWedding = () => {
                     animate={{ y: 0, opacity: 1 }}
                     exit={{ y: -20, opacity: 0 }}
                     transition={{ duration: 0.4, ease: "easeOut" }}
-                    className="font-display text-4xl md:text-6xl text-[#f4e2b0] glow-gold mb-1"
+                    className="font-display text-4xl md:text-6xl text-[#f4e2b0] glow-gold mb-1 relative z-10"
                   >
                     {String(item.val).padStart(2, "0")}
                   </motion.span>
                 </AnimatePresence>
                 
-                <span className="font-body text-[10px] md:text-xs uppercase tracking-[0.2em] text-[#c3aa64]/70">
+                <span className="font-body text-[10px] md:text-xs uppercase tracking-[0.2em] text-[#c3aa64]/70 relative z-10">
                   {item.label}
                 </span>
                 </motion.div>
@@ -102,30 +121,55 @@ const LuxuryWedding = () => {
         <motion.div
           initial={{ opacity: 0, y: 30 }}
           whileInView={{ opacity: 1, y: 0 }}
-          animate={{ y: [0, -10, 0] }}
+          animate={{ 
+            y: [0, -10, 0],
+            boxShadow: [
+              "0 20px 60px rgba(0,0,0,0.7), 0 0 20px rgba(195, 170, 100, 0.05)",
+              "0 20px 60px rgba(0,0,0,0.7), 0 0 40px rgba(195, 170, 100, 0.15)",
+              "0 20px 60px rgba(0,0,0,0.7), 0 0 20px rgba(195, 170, 100, 0.05)"
+            ]
+          }}
           viewport={{ once: true }}
           transition={{ 
             delay: 0.6, 
             duration: 1,
-            y: { duration: 6, repeat: Infinity, ease: "easeInOut" }
+            y: { duration: 6, repeat: Infinity, ease: "easeInOut" },
+            boxShadow: { duration: 5, repeat: Infinity, ease: "easeInOut" }
           }}
-          className="bg-[#1f0005]/60 border-2 border-[#c3aa64]/20 p-10 md:p-16 rounded-[3rem] backdrop-blur-md shadow-[0_20px_60px_rgba(0,0,0,0.7)] relative overflow-hidden"
+          className="bg-[#1f0005]/60 border-2 border-[#c3aa64]/30 p-10 md:p-16 rounded-[3rem] backdrop-blur-xl shadow-[0_20px_60px_rgba(0,0,0,0.7)] relative overflow-hidden group"
         >
-          <div className="absolute -top-10 -left-10 w-40 h-40 bg-[#c3aa64]/5 blur-[60px] rounded-full" />
-          <div className="absolute -bottom-10 -right-10 w-40 h-40 bg-[#c3aa64]/5 blur-[60px] rounded-full" />
+          {/* Animated Glow Orbs */}
+          <motion.div 
+            animate={{ 
+              scale: [1, 1.2, 1],
+              opacity: [0.3, 0.6, 0.3],
+            }}
+            transition={{ duration: 8, repeat: Infinity, ease: "easeInOut" }}
+            className="absolute -top-20 -left-20 w-64 h-64 bg-[#c3aa64]/10 blur-[80px] rounded-full pointer-events-none" 
+          />
+          <motion.div 
+            animate={{ 
+              scale: [1, 1.3, 1],
+              opacity: [0.3, 0.5, 0.3],
+            }}
+            transition={{ duration: 10, repeat: Infinity, ease: "easeInOut", delay: 1 }}
+            className="absolute -bottom-20 -right-20 w-64 h-64 bg-[#c3aa64]/10 blur-[80px] rounded-full pointer-events-none" 
+          />
           
-          <p className="font-display text-4xl md:text-6xl text-[#f4e2b0] mb-6 drop-shadow-[0_4px_10px_rgba(0,0,0,0.8)]">
+          <div className="absolute inset-0 border border-[#c3aa64]/20 rounded-[3rem] pointer-events-none" />
+          
+          <p className="font-display text-4xl md:text-6xl text-[#f4e2b0] mb-6 drop-shadow-[0_4px_12px_rgba(0,0,0,0.9)] relative z-10">
             15th December, 2026
           </p>
           
-          <div className="space-y-4 font-hindi text-xl md:text-2xl text-[#c3aa64]/90 tracking-wide mb-8">
-            <p>समय: सायं 7:00 बजे</p>
-            <p>स्थान: द ग्रैंड बॉलरूम, ताज पैलेस, मुंबई</p>
+          <div className="space-y-4 font-hindi text-xl md:text-2xl text-[#f4e2b0]/90 tracking-wide mb-8 relative z-10">
+            <p className="glow-gold">समय: सायं 7:00 बजे</p>
+            <p className="glow-gold">स्थान: द ग्रैंड बॉलरूम, ताज पैलेस, मुंबई</p>
           </div>
           
-          <div className="ornament-line mx-auto w-1/4 mb-10 opacity-30" />
+          <div className="ornament-line mx-auto w-1/4 mb-10 opacity-50 relative z-10" />
           
-          <p className="font-body text-[#e8dcb8]/60 text-sm uppercase tracking-[0.5em] leading-loose">
+          <p className="font-body text-[#e8dcb8]/80 text-sm uppercase tracking-[0.5em] leading-loose relative z-10 drop-shadow-md">
             Traditional Elegance · Black Tie
           </p>
         </motion.div>

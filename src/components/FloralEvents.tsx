@@ -5,12 +5,12 @@ import GoldenElements from "./GoldenElements";
 import RoyalRajasthanBackground from "./RoyalRajasthanBackground";
 import AnimatedRoyalBackground from "./AnimatedRoyalBackground";
 
-import eventMehendi from "@/assets/event-mehendi.jpg";
-import eventHaldi from "@/assets/event-haldi.jpg";
-import eventSangeet from "@/assets/event-sangeet.jpg";
-import eventWedding from "@/assets/event-wedding.jpg";
-import eventReception from "@/assets/event-reception.jpg";
-import eventVidaai from "@/assets/event-vidaai.jpg";
+import eventMehendi from "@/assets/mehandi.jpg";
+import eventHaldi from "@/assets/haldi.jpg";
+import eventSangeet from "@/assets/sangeet.jpg";
+import eventWedding from "@/assets/wedding.jpg";
+import eventReception from "@/assets/reception.jpg";
+import eventVidaai from "@/assets/vidai.jpg";
 
 const events = [
   {
@@ -100,7 +100,7 @@ const FloralEvents = () => {
       <RoyalRajasthanBackground sectionRef={sectionRef} />
       <AnimatedRoyalBackground />
       <GoldenElements />
-      
+
       {/* Background Decor */}
       <div className="absolute inset-0 pointer-events-none opacity-20">
         <div className="absolute top-0 left-0 w-full h-32 bg-gradient-to-b from-[#1a0004] to-transparent"></div>
@@ -149,16 +149,30 @@ const FloralEvents = () => {
                 whileHover={isActive ? { scale: 1.03, y: -4 } : {}}
               >
                 <div
-                  className={`rounded-2xl p-8 md:p-10 border backdrop-blur-sm shadow-[0_20px_50px_rgba(0,0,0,0.5)] transition-shadow duration-500 ${isActive ? "shadow-[0_0_30px_rgba(195,170,100,0.4)] border-[#c3aa64]/60" : "border-[#c3aa64]/25"}`}
+                  className={`rounded-2xl p-8 md:p-10 border backdrop-blur-md shadow-[0_20px_50px_rgba(0,0,0,0.5)] transition-all duration-500 overflow-hidden relative ${isActive ? "border-[#c3aa64]/60 shadow-[0_0_40px_rgba(195,170,100,0.2)]" : "border-[#c3aa64]/25"}`}
                   style={{
                     background: "linear-gradient(160deg, #1f0005 0%, #1a0004 100%)",
                   }}
                 >
-                  <span className="text-5xl mb-5 block">{event.emoji}</span>
-                  <h3 className="font-display text-2xl md:text-3xl mb-3 text-[#c3aa64] glow-gold">
+                  {/* Dynamic Spotlight Effect for Active Card */}
+                  {isActive && (
+                    <motion.div 
+                      className="absolute inset-0 bg-[radial-gradient(circle_at_var(--mouse-x,50%)_var(--mouse-y,50%),rgba(195,170,100,0.15),transparent_70%)] opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none"
+                      onMouseMove={(e) => {
+                        const rect = e.currentTarget.getBoundingClientRect();
+                        const x = ((e.clientX - rect.left) / rect.width) * 100;
+                        const y = ((e.clientY - rect.top) / rect.height) * 100;
+                        e.currentTarget.style.setProperty('--mouse-x', `${x}%`);
+                        e.currentTarget.style.setProperty('--mouse-y', `${y}%`);
+                      }}
+                    />
+                  )}
+
+                  <span className="text-5xl mb-5 block relative z-10">{event.emoji}</span>
+                  <h3 className="font-display text-2xl md:text-3xl mb-3 text-[#c3aa64] glow-gold relative z-10">
                     {event.title}
                   </h3>
-                  <p className="font-body text-sm leading-relaxed mb-6 text-[#e8dcb8]/80">
+                  <p className="font-body text-sm leading-relaxed mb-6 text-[#e8dcb8]/80 relative z-10">
                     {event.desc}
                   </p>
 
@@ -169,7 +183,7 @@ const FloralEvents = () => {
                         animate={{ height: "auto", opacity: 1 }}
                         exit={{ height: 0, opacity: 0 }}
                         transition={{ duration: 0.4, ease: "easeInOut" }}
-                        className="overflow-hidden"
+                        className="overflow-hidden relative z-10"
                       >
                         <div
                           className="border-t pt-5 mt-2 space-y-2 font-body text-sm border-[#c3aa64]/20"
@@ -183,7 +197,7 @@ const FloralEvents = () => {
                           initial={{ opacity: 0, y: 10 }}
                           animate={{ opacity: 1, y: 0 }}
                           transition={{ delay: 0.2 }}
-                          className="mt-4 w-full px-6 py-3 rounded-full font-body text-sm font-medium transition-all duration-300 bg-[#c3aa64] text-[#1a0004] shadow-[0_4px_15px_rgba(195,170,100,0.3)] hover:scale-105"
+                          className="mt-4 w-full px-6 py-3 rounded-full font-body text-sm font-medium transition-all duration-300 bg-[#c3aa64] text-[#1a0004] shadow-[0_4px_15px_rgba(195,170,100,0.3)] hover:scale-105 active:scale-95"
                           onClick={(e) => {
                             e.stopPropagation();
                             setShowImage(idx);
@@ -196,7 +210,7 @@ const FloralEvents = () => {
                       <motion.button
                         initial={{ opacity: 0 }}
                         animate={{ opacity: 1 }}
-                        className="mt-2 px-6 py-2.5 rounded-full font-body text-sm font-medium transition-all duration-300 border border-[#c3aa64] text-[#c3aa64] hover:bg-[#c3aa64] hover:text-[#1a0004]"
+                        className="mt-2 px-6 py-2.5 rounded-full font-body text-sm font-medium transition-all duration-300 border border-[#c3aa64] text-[#c3aa64] hover:bg-[#c3aa64] hover:text-[#1a0004] relative z-10 active:scale-95"
                         onClick={(e) => {
                           e.stopPropagation();
                           setRevealed(idx);

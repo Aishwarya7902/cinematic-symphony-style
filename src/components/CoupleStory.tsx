@@ -1,10 +1,10 @@
 import { useState, useRef } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import couplePortrait from "@/assets/couple-portrait.jpg";
-import storyFirstMeet from "@/assets/story-first-meet.png";
-import storyFirstDate from "@/assets/story-first-date.png";
-import storyProposal from "@/assets/story-proposal.png";
-import storyForever from "@/assets/story-forever.png";
+import storyFirstMeet from "@/assets/first-meet.jpg";
+import storyFirstDate from "@/assets/first-date.jpg";
+import storyProposal from "@/assets/first-proposal.jpg";
+import storyForever from "@/assets/forever-begins.jpg";
 import GoldenElements from "./GoldenElements";
 import RoyalRajasthanBackground from "./RoyalRajasthanBackground";
 import AnimatedRoyalBackground from "./AnimatedRoyalBackground";
@@ -25,7 +25,7 @@ const CoupleStory = () => {
       <RoyalRajasthanBackground sectionRef={sectionRef} />
       <AnimatedRoyalBackground />
       <GoldenElements />
-      
+
       {/* Background Decor */}
       <div className="absolute inset-0 pointer-events-none opacity-20">
         <div className="absolute top-0 right-0 w-64 h-64 bg-radial-gradient from-[#c3aa64]/10 to-transparent"></div>
@@ -75,7 +75,7 @@ const CoupleStory = () => {
               </AnimatePresence>
               <div className="absolute inset-x-0 bottom-0 h-40 bg-gradient-to-t from-[#1a0004]/80 to-transparent" />
             </div>
-            
+
             {/* Decorative Arched Frame Accent */}
             <div className="absolute -inset-4 border border-[#c3aa64]/20 rounded-[2.5rem] -z-10 pointer-events-none" />
 
@@ -138,7 +138,7 @@ const CoupleStory = () => {
                         }}
                       />
                       {isActive && (
-                        <motion.div 
+                        <motion.div
                           className="absolute w-10 h-10 rounded-full bg-[#c3aa64]/20 -z-10"
                           animate={{ scale: [1, 1.6, 1] }}
                           transition={{ duration: 2, repeat: Infinity }}
@@ -154,9 +154,9 @@ const CoupleStory = () => {
                         {item.title}
                       </h3>
                       <p className="font-body text-[#e8dcb8]/70 leading-relaxed italic">{item.desc}</p>
-                      
+
                       {isActive && (
-                        <motion.div 
+                        <motion.div
                           initial={{ scaleX: 0 }}
                           animate={{ scaleX: 1 }}
                           className="h-0.5 w-1/4 bg-[#c3aa64] mt-4 origin-left"

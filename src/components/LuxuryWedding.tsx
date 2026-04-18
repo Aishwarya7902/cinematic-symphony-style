@@ -1,5 +1,6 @@
 import { motion, AnimatePresence } from "framer-motion";
 import { useEffect, useState, useRef } from "react";
+import { Phone } from "lucide-react";
 import GoldenElements from "./GoldenElements";
 import RoyalRajasthanBackground from "./RoyalRajasthanBackground";
 import AnimatedRoyalBackground from "./AnimatedRoyalBackground";
@@ -169,9 +170,36 @@ const LuxuryWedding = () => {
           
           <div className="ornament-line mx-auto w-1/4 mb-10 opacity-50 relative z-10" />
           
-          <p className="font-body text-[#e8dcb8]/80 text-sm uppercase tracking-[0.5em] leading-loose relative z-10 drop-shadow-md">
+          <p className="font-body text-[#e8dcb8]/80 text-sm uppercase tracking-[0.5em] leading-loose relative z-10 drop-shadow-md mb-10">
             Traditional Elegance · Black Tie
           </p>
+
+          {/* Father's Contact Details */}
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-8 relative z-10 border-t border-[#c3aa64]/20 pt-10">
+            <motion.div 
+              whileHover={{ scale: 1.05 }}
+              className="flex flex-col items-center gap-2 p-4 rounded-2xl bg-[#c3aa64]/5 border border-[#c3aa64]/10"
+            >
+              <div className="flex items-center gap-2 text-[#f4e2b0]">
+                <Phone size={16} className="text-[#c3aa64]" />
+                <span className="font-display text-lg tracking-wider">Mr. Sharma</span>
+              </div>
+              <p className="font-hindi text-[#e8dcb8]/60 text-xs mb-1">(Bride's Father)</p>
+              <a href="tel:+919988776655" className="font-body text-[#c3aa64] hover:text-[#f4e2b0] transition-colors tracking-[0.2em] font-medium text-sm lg:text-base">+91 99887 76655</a>
+            </motion.div>
+
+            <motion.div 
+              whileHover={{ scale: 1.05 }}
+              className="flex flex-col items-center gap-2 p-4 rounded-2xl bg-[#c3aa64]/5 border border-[#c3aa64]/10"
+            >
+              <div className="flex items-center gap-2 text-[#f4e2b0]">
+                <Phone size={16} className="text-[#c3aa64]" />
+                <span className="font-display text-lg tracking-wider">Mr. Verma</span>
+              </div>
+              <p className="font-hindi text-[#e8dcb8]/60 text-xs mb-1">(Groom's Father)</p>
+              <a href="tel:+918877665544" className="font-body text-[#c3aa64] hover:text-[#f4e2b0] transition-colors tracking-[0.2em] font-medium text-sm lg:text-base">+91 88776 65544</a>
+            </motion.div>
+          </div>
         </motion.div>
       </div>
 
